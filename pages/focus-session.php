@@ -68,9 +68,9 @@
                     <button class="ai-close-btn" id="btn-close-ai">&times;</button>
                 </div>
                 <div class="ai-chat-messages" id="ai-messages">
-                    <div class="ai-msg received">
+                    <!-- <div class="ai-msg received">
                         Hi there! Ready to focus? I'm here to help you stay productive.
-                    </div>
+                    </div> -->
                 </div>
                 <div class="ai-chat-input-area">
                     <input type="text" id="ai-input" placeholder="Ask me anything...">
@@ -162,8 +162,8 @@
                         <path d="M13 8l2 0"/><path d="M13 12l2 0"/>
                     </svg>
                 </button>
-                <!-- Quiz icon -->
-                <button class="tool-icon" title="Quiz">
+                <!-- Quiz / Summary icon -->
+                <button class="tool-icon" id="btn-summary" title="AI Summary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"/>
@@ -200,7 +200,6 @@
         </div>
     </div>
 
-    <script src="../js/script.js"></script>
 
     <!-- File Viewer Modal -->
     <div id="file-viewer-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center;">
@@ -218,6 +217,62 @@
         </div>
     </div>
 
+    <!-- ===== AI Summary Modal ===== -->
+    <div id="summary-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+        <div id="summary-modal-card" style="background:var(--card-bg); border-radius:20px; width:90%; max-width:860px; height:85vh; display:flex; flex-direction:column; box-shadow:0 25px 60px rgba(0,0,0,0.35); overflow:hidden; animation:summaryPopIn 0.3s ease;">
+            <!-- Header -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 28px; border-bottom:1px solid var(--border-color); flex-shrink:0;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:38px; height:38px; background:linear-gradient(135deg,#5e5ce6,#a78bfa); border-radius:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(94,92,230,0.4);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-weight:700; font-size:16px; color:var(--text-main);">AI Summary</div>
+                        <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Detailed explanation and complete summary of your materials</div>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <select id="summary-language-select" style="background:rgba(94,92,230,0.1); border:1px solid rgba(94,92,230,0.3); color:var(--text-main); padding:8px 14px; border-radius:50px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; outline:none;">
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                    </select>
+                    <button id="summary-regenerate-btn" style="background:rgba(94,92,230,0.1); border:1px solid rgba(94,92,230,0.3); color:var(--primary-color); padding:8px 18px; border-radius:50px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.2s; font-family:inherit;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
+                        Regenerate
+                    </button>
+                    <button id="close-summary-btn" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:var(--text-muted); line-height:1; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:all 0.2s;">&times;</button>
+                </div>
+            </div>
+            <!-- Body -->
+            <div id="summary-body" style="flex:1; overflow-y:auto; padding:32px 36px; display:flex; flex-direction:column; gap:0;">
+                <!-- Loading State -->
+                <div id="summary-loading" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:20px;">
+                    <div style="display:flex; gap:8px;">
+                        <span class="summary-dot"></span>
+                        <span class="summary-dot"></span>
+                        <span class="summary-dot"></span>
+                    </div>
+                    <p style="color:var(--text-muted); font-size:15px; margin:0;">Generating summary...</p>
+                </div>
+                <!-- Content (hidden until loaded) -->
+                <div id="summary-content" style="display:none;"></div>
+            </div>
+            <!-- Footer -->
+            <div style="padding:16px 28px; border-top:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+                <span id="summary-points-count" style="font-size:13px; color:var(--text-muted); font-weight:500;"></span>
+                <button id="summary-export-btn" style="background:linear-gradient(135deg,#5e5ce6,#a78bfa); color:#fff; border:none; padding:12px 28px; border-radius:50px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.25s; font-family:inherit; box-shadow:0 4px 14px rgba(94,92,230,0.35);">
+                    Download Summary PDF
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12"/><path d="M7 10l5 5l5 -5"/><path d="M5 21h14"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/focus-session-materials.js"></script>
     </body>
     </html>
