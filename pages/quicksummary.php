@@ -11,8 +11,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/quicksummary.css" />
-      <script src="../js/auth.js"></script>
-</head>
+    <script src="../js/auth.js"></script>
+    <script src="../js/quicksummary.js" defer></script>
+  </head>
   <body>
     <!-- Page -->
     <div class="page">
@@ -32,52 +33,12 @@
           Here are the key takeaways from your study session
         </p>
 
-        <!-- List -->
-        <div class="qs-list">
-          <div class="qs-item">
-            <span class="qs-num">1</span>
-            <p class="qs-text">
-              <span class="highlight">Focused study sessions</span> improve
-              retention by breaking learning into manageable intervals
-            </p>
-          </div>
-
-          <div class="qs-item">
-            <span class="qs-num">2</span>
-            <p class="qs-text">
-              <span class="highlight">Active recall through</span> quizzing
-              strengthens neural pathways and long-term memory
-            </p>
-          </div>
-
-          <div class="qs-item">
-            <span class="qs-num">3</span>
-            <p class="qs-text">
-              <span class="highlight">Consistent practice with</span>
-              gamification elements increases motivation and engagement
-            </p>
-          </div>
-
-          <div class="qs-item">
-            <span class="qs-num">4</span>
-            <p class="qs-text">
-              <span class="highlight">Progress tracking helps</span> identify
-              weak areas and optimize study strategies
-            </p>
-          </div>
-
-          <div class="qs-item">
-            <span class="qs-num">5</span>
-            <p class="qs-text">
-              <span class="highlight">Regular breaks prevent</span> cognitive
-              fatigue and maintain peak mental performance
-            </p>
-          </div>
-        </div>
+        <!-- List (AI summary from session; see quicksummary.js) -->
+        <div id="qs-list" class="qs-list" aria-live="polite"></div>
 
         <!-- Footer -->
         <div class="qs-footer">
-          <span class="qs-count">5 key points highlighted</span>
+          <span class="qs-count"></span>
           <button class="qs-btn" onclick="window.location.href = 'quiz.php'">
             Continue to Quiz
             <svg viewBox="0 0 24 24">

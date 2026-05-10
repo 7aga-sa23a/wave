@@ -1,4 +1,5 @@
 // ── State (7alet el quiz wel arqam) ──
+const questions = Array.isArray(window.QUIZ_QUESTIONS) ? window.QUIZ_QUESTIONS : [];
 let currentIndex = 0; // raqam el so2al el 7ali
 let answers = new Array(questions.length).fill(null); // el egabat elly e5tarha el user
 let correctCount = 0; // 3adad el egabat el sa7
@@ -59,7 +60,9 @@ function render() {
 
   progressLabel.textContent = `Question ${currentIndex + 1} of ${total}`;
 
-  progressFill.style.width = `${(currentIndex / (total - 1)) * 100}%`;
+  const progressPct =
+    total <= 1 ? 100 : (currentIndex / (total - 1)) * 100;
+  progressFill.style.width = `${progressPct}%`;
 
   questionText.textContent = q.text;
 
@@ -240,5 +243,11 @@ function showQuizModal() {
   document.body.appendChild(modal);
 }
 
-render();
-startTimer();
+if (questions.length > 0) {
+  render();
+  startTimer();
+} else if (questionText) {
+  questionText.textContent = "No questions available.";
+  if (btnNext) btnNext.disabled = true;
+  if (btnPrev) btnPrev.disabled = true;
+}
