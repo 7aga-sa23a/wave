@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>forgot password</title>
-    <link rel="stylesheet" href="styles2.css" />
+    <title>sign in</title>
+    <link rel="stylesheet" href="../../public/css/styles2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -24,32 +24,20 @@
                 <h3>Cognify</h3>
             </div>
             <div class="content">
-                <h2>Forgot Password?</h2>
-                <p>No worries, we'll send you reset instructions</p>
+                <h2>Welcome back</h2>
+                <p>Sign in to continue your study journey</p>
             </div>
     </div>
     <form action="" class="signup-form">
-        <div class="forget-password-massege">
-            <span><svg class="mail" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
-                <path d="M3 7l9 6l9 -6" />
-            </svg></span>
-            <p>Enter your email and we'll send you a link to reset your password</p>
-        </div>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        <button class="send-reset-button" type="submit"onclick = "location.href='email-check.html'">Send Reset Link</button>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <p class="forgot-password"><a href="forgot-password.html">Forgot Password?</a></p>
+        <button type="submit">Sign In</button>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </form>
-    <div class="back-to-sign-in-container">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M5 12l14 0" />
-	<path d="M5 12l4 4" />
-	<path d="M5 12l4 -4" />
-    </svg>
-    <p class="back-to-sign-in"><a href="signIn.html">Back to sign in</a></p>
-    </div>
+    <p class="agree">By continuing, you agree to our Terms of Service and Privacy Policy</p>
     </div>
     
     <script src="script.js"></script>
