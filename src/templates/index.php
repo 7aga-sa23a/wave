@@ -1,15 +1,25 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>home page</title>
-    <link rel="stylesheet" href="../../public/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Cognify</title>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/index.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <?php require __DIR__ . '/paths.php'; ?>
+    <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
 <body>
+        <div id="navbar"></div>
+    
+    <script src="<?= COMPONENTS_URL ?>/navbar.js?v=4"></script>
+
     <section class="section1">
+
+    
     <div class="intro">
         <h1>
         <span>Study smarter,</span>
@@ -20,7 +30,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
     </p>
     </div>
     <div>
-        <button class="button1">Start Free Session</button>
+        <button class="button1" onclick="window.location.href='<?= TEMPLATES_URL ?>/signUp.php'">Start Free Session</button>
         <button class="button2">Learn More</button>
     </div>
     <div class="stats">
@@ -132,7 +142,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
         <div>
             <h2>Ready to boost your productivity?</h2>
             <p>Join thousands of students who are studying smarter with Cognify</p>
-            <div class="button-st"><button>Start Your First Session
+            <div class="button-st"><button onclick="window.location.href='<?= TEMPLATES_URL ?>/signUp.php'">Start Your First Session
                 <div class="svg-d"><svg class="svg-b" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right-dashed">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M5 12h.5m3 0h1.5m3 0h6" />
@@ -143,6 +153,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
             </div>
         </div>
     </section>
+    
     <section class="section5">
         <div class="cognify">
             <span><svg class="svg-cog" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brain">
@@ -158,6 +169,9 @@ instant summaries, and smart quizzes that help you retain more in less time.
         </div>
         <p>© 2026 Cognify. All rights reserved.</p>
     </section>
-    <script src="script.js"></script>
+    <div id="footer"></div>
+    <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <script src="<?= JS_URL ?>/main.js"></script>
+    
 </body>
 </html>

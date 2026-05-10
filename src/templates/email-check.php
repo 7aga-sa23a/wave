@@ -1,16 +1,19 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>forgot password</title>
-    <link rel="stylesheet" href="../../public/css/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-</head> 
+    <?php require __DIR__ . '/paths.php'; ?>
+    <script src="<?= JS_URL ?>/auth.js"></script>
+</head>
 <body>
     <div class="allPage">
-    <form action="" class="signup-form">
+    <form action="<?= TEMPLATES_URL ?>/signIn.php" class="signup-form">
         <div class="check-email-container">
         <div class="verified"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount-check">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -22,10 +25,10 @@
         <p class="p3">We've sent a password reset link to your email address.</p>
         <p class="p4">Didn't receive the email? Check your spam folder or try again.</p>
         </div>
-        <button class="back-to-sign-in-button" type="submit" onclick ="location.href ='signIn.html'">Back to Sign In</button>
+        <button class="back-to-sign-in-button" type="button" onclick ="window.location.href = '<?= TEMPLATES_URL ?>/signIn.php'">Back to Sign In</button>
         <button class="resend-email" type="submit">Resend Email</button>
     </form>
     </div>
-    <script src="script.js"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
 </body>
 </html>
