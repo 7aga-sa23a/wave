@@ -111,7 +111,7 @@ Rules:
 ";
 
 $data = [
-    "model" => "openrouter/free",
+    "model" => "minimax/minimax-m2.5:free",
     "messages" => [
         [
             "role" => "system",
