@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../core/config.php';
-require_once __DIR__ .  '/../dashboard/study-session-logic.php';
+require_once __DIR__ .  '/../logic/study-session-logic.php';
 require_once __DIR__ . '/paths.php';
 ?>
 <!DOCTYPE html>
