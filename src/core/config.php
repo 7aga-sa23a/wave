@@ -3,7 +3,7 @@ if (!defined('PUBLIC_URL')) {
     define('PUBLIC_URL', '../../public');
     define('DATABASE_URL', '../../database');
     define('CORE_URL', '../../src/core');
-    define('TEMPLATES_URL', '../../src/template');
+    define('TEMPLATES_URL', '../../src/templates');
 
     define('CSS_URL', "../../public/css/");
     define('IMG_URL', "../../public/assets/img");
