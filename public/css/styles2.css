@@ -30,13 +30,9 @@ body {
     color: #4F46E5;
     margin-bottom: 1rem;
 }
-.svg-cog {
-    color:#4F46E5;
-    background-color: transparent;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    margin-right: 10px;
+.cognify img {
+    width: 150px;
+    height: auto;
 }
 .content {
     text-align: center;
@@ -190,7 +186,7 @@ button:hover {
 }
 
 .resend-email   {
-    background: #b2b2cd;
+    background: #d3d3eb;
     color: black;
     font-weight: 500;
 }
