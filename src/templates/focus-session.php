@@ -100,6 +100,7 @@
                     <textarea id="session-notes-text" placeholder="Jot down your brilliant ideas here..."></textarea>
                 </div>
                 <div class="ai-chat-input-area" style="justify-content: flex-end; gap: 10px;">
+                    <button id="delete-note-btn" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: 600; background: #fee2e2; border: 1px solid #fca5a5; color: #dc2626; cursor: pointer; transition: background 0.2s; display: none;">Delete</button>
                     <button id="new-note-btn" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: 600; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; transition: background 0.2s;">New Note</button>
                     <button id="save-notes-btn" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: 600;">Save Notes</button>
                 </div>
@@ -165,7 +166,7 @@
                     </svg>
                 </button>
                 <!-- Quiz icon -->
-                <button class="tool-icon" title="Quiz">
+                <button class="tool-icon" id="btn-quiz" title="Summary & Quiz">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"/>
@@ -203,6 +204,51 @@
     </div>
 
     <script src="<?= JS_URL ?>/script.js"></script>
+
+    <!-- AI Summary Modal -->
+    <div id="summary-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center;">
+        <div style="background:var(--card-bg); border-radius:20px; width:90%; max-width:900px; height:85vh; display:flex; flex-direction:column; box-shadow:0 25px 60px rgba(0,0,0,0.3); overflow:hidden;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--border-color);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="display:flex; align-items:center; color: var(--primary-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"/><path d="M12 12l8 -4.5"/><path d="M12 12l0 9"/><path d="M12 12l-8 -4.5"/><path d="M16 5.25l-8 4.5"/></svg>
+                    </span>
+                    <span style="font-weight:600; font-size:15px; color:var(--text-main);">AI Summary</span>
+                </div>
+                <button id="close-summary-btn" style="background:transparent; border:none; font-size:22px; cursor:pointer; color:var(--text-muted); line-height:1;">&times;</button>
+            </div>
+            <div id="summary-container" style="flex:1; overflow-y:auto; padding:24px; color:var(--text-main); font-family:var(--font-family); line-height:1.6;">
+                <div id="summary-loading" style="display:none; text-align:center; padding: 40px;">
+                    <svg class="spinner" width="40" height="40" viewBox="0 0 50 50" style="animation: spin 1s linear infinite; fill: var(--primary-color); margin: 0 auto 20px;">
+                        <path d="M25,5A20.14,20.14,0,0,1,45,22.88a2.51,2.51,0,0,0,2.49,2.26h0A2.52,2.52,0,0,0,50,22.33a25.14,25.14,0,0,0-50,0,2.52,2.52,0,0,0,2.5,2.81h0A2.51,2.51,0,0,0,5,22.88,20.14,20.14,0,0,1,25,5Z"/>
+                    </svg>
+                    <p style="color:var(--text-muted);">Analyzing study materials and generating key points...</p>
+                </div>
+                <div id="summary-content" style="display:none;">
+                    <h3 style="margin-top:0;">Key Takeaways</h3>
+                    <ul style="padding-left:20px; margin-bottom:20px;">
+                        <li style="margin-bottom:10px;">The document focuses on the core principles of the subject matter.</li>
+                        <li style="margin-bottom:10px;">Various examples were provided to illustrate complex interactions.</li>
+                        <li style="margin-bottom:10px;">A significant emphasis is placed on historical context and future trends.</li>
+                    </ul>
+                    <h3>Action Items</h3>
+                    <ul style="padding-left:20px;">
+                        <li style="margin-bottom:10px;">Review the foundational theories discussed in Chapter 2.</li>
+                        <li style="margin-bottom:10px;">Practice the practical exercises to ensure deep comprehension.</li>
+                    </ul>
+                </div>
+                <div id="summary-empty" style="text-align:center; padding: 40px; color:var(--text-muted);">
+                    <p>Click "Generate Summary" to get an AI-powered breakdown of your materials.</p>
+                </div>
+            </div>
+            <div style="padding:16px 24px; border-top:1px solid var(--border-color); display:flex; justify-content:flex-end;">
+                <button id="generate-summary-btn" style="background:var(--primary-color); color:#fff; border:none; padding:10px 24px; border-radius:8px; font-weight:600; cursor:pointer; font-family:var(--font-family);">Generate Summary</button>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes spin { 100% { transform:rotate(360deg); } }
+    </style>
 
     <!-- File Viewer Modal -->
     <div id="file-viewer-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center;">
