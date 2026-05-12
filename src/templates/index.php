@@ -3,12 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <title>Cognify</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/index.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
     <?php require __DIR__ . '/paths.php'; ?>
     <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
@@ -172,6 +174,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
     <div id="footer"></div>
     <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
     <script src="<?= JS_URL ?>/main.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
     
 </body>
 </html>

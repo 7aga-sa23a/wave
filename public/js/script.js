@@ -91,52 +91,6 @@ endModal.addEventListener('click', (e) => {
 
 updateTimer();
 
-// ===== Taghyeer el theme (Theme Switcher) =====
-const btnLight = document.getElementById('btn-light');
-const btnDark  = document.getElementById('btn-dark');
-const htmlEl   = document.documentElement;
-
-function applyTheme(theme) {
-    // Fade animation
-    document.body.classList.add('theme-switching');
-    setTimeout(() => document.body.classList.remove('theme-switching'), 350);
-
-    if (theme === 'dark') {
-        htmlEl.setAttribute('data-theme', 'dark');
-        btnDark.classList.add('active');
-        btnLight.classList.remove('active');
-    } else {
-        htmlEl.removeAttribute('data-theme');
-        btnLight.classList.add('active');
-        btnDark.classList.remove('active');
-    }
-
-    localStorage.setItem('session-theme', theme);
-}
-
-function triggerRipple(btn) {
-    btn.classList.remove('ripple');
-    void btn.offsetWidth; // reflow
-    btn.classList.add('ripple');
-    setTimeout(() => btn.classList.remove('ripple'), 400);
-}
-
-if (btnLight && btnDark) {
-    btnLight.addEventListener('click', () => {
-        triggerRipple(btnLight);
-        applyTheme('light');
-    });
-
-    btnDark.addEventListener('click', () => {
-        triggerRipple(btnDark);
-        applyTheme('dark');
-    });
-
-    // N-apply el theme elly metsayev lma el saf7a t-load
-    const savedTheme = localStorage.getItem('session-theme') || 'light';
-    applyTheme(savedTheme);
-}
-
 // ===== Mantiq el Panels el ganbaya (AI & Notes & Music) =====
 const btnAi         = document.getElementById('btn-ai');
 const btnCloseAi    = document.getElementById('btn-close-ai');

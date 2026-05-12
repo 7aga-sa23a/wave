@@ -3,8 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>Sign Up - Cognify</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -45,6 +47,7 @@
     </div>
 
     <script src="<?= JS_URL ?>/signUp.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
 </body>
 </html>
 

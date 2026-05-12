@@ -3,6 +3,7 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <?php require __DIR__ . '/partials/theme-head.php'; ?>
         <title>study session</title>
         <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
     <?php require __DIR__ . '/paths.php'; ?>
     <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
@@ -198,9 +200,10 @@
     </section>
         </section>
         <div id="footer"></div>
-    <script src=\"<?= JS_URL ?>/script.js\"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
         <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
     <script src="<?= JS_URL ?>/main.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
 
     </body>
     </html>
