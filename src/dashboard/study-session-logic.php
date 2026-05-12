@@ -8,27 +8,27 @@ require_once __DIR__ . '/../core/connect.php'; # Database connector
 
 # If session is not started, redirect to login page
 if (!isset($_SESSION)) {
+    # FOR TESTING
+    # # starting a dump session    
+    // session_start();
+    // $_SESSION = [
+    //     'id'                  => 2,
+    //     'name'                => 'John Doe',
+    //     'email'               => 'john@example.com',
+    //     'password'            => 'hashed_password_here',
+    //     'streak'              => 5,
+    //     'max_streak'          => 12,
+    //     'points'              => 12124650,
+    //     'last_week_points'    => 512,
+    //     'sessions'            => 28,
+    //     'achievements'        => 3,
+    //     'achievements_points' => 150,
+    //     'created_at'          => date('Y-m-d H:i:s')
+    // ];
+
     require __DIR__ .  "/../templates/signIn.php";
     exit();
 }
-
-// # FOR TESTING
-// # # starting a dump session
-// session_start();
-// $_SESSION = [
-//     'id'                  => 2,
-//     'name'                => 'John Doe',
-//     'email'               => 'john@example.com',
-//     'password'            => 'hashed_password_here',
-//     'streak'              => 5,
-//     'max_streak'          => 12,
-//     'points'              => 12124650,
-//     'last_week_points'    => 512,
-//     'sessions'            => 28,
-//     'achievements'        => 3,
-//     'achievements_points' => 150,
-//     'created_at'          => date('Y-m-d H:i:s')
-// ];
 
 /*************************************************************************************************/
 
