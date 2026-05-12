@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../core/config.php'; ?>
 <?php
-include("../data/questions.php");
+include("../helpers/questions.php");
 ?>
 
 <!doctype html>
@@ -60,7 +60,20 @@ include("../data/questions.php");
       </div>
     </div>
 <script>
-  const questions = <?php echo json_encode($questions); ?>;
+  (function () {
+    var fallback = <?php echo json_encode($questions); ?>;
+    var q = null;
+    try {
+      var raw = sessionStorage.getItem("session-quiz-questions");
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          q = parsed;
+        }
+      }
+    } catch (e) {}
+    window.QUIZ_QUESTIONS = q || fallback;
+  })();
 </script>
     <script src="<?= JS_URL ?>/quiz.js"></script>
   </body>

@@ -28,7 +28,7 @@
                 <div class="card" id="sidebar-notes-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <span class="card-label">MY NOTES</span>
-                        <button id="sidebar-add-note-btn" style="background: var(--primary-color); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px;">+</button>
+                        <button type="button" id="sidebar-add-note-btn" class="sidebar-add-note-trigger" aria-label="Add note" title="Add note">+</button>
                     </div>
                     <div id="sidebar-notes-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 150px; overflow-y: auto; padding-right: 4px;">
                         <!-- Notes will be injected here -->
@@ -53,7 +53,17 @@
                 </div>
 
                 <div class="btn-group">
-                    <button id="main-btn" class="start-btn">Start Session</button>
+                    <button type="button" id="main-btn" class="session-main-btn" aria-label="Start session" title="Start session">
+                        <svg class="session-main-btn__icon session-main-btn__icon--play" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M8 5v14l11 -7z"/>
+                        </svg>
+                        <svg class="session-main-btn__icon session-main-btn__icon--pause is-hidden" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M9 4h-2a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1z"/>
+                            <path d="M17 4h-2a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1z"/>
+                        </svg>
+                    </button>
                     <button id="end-btn" class="end-btn end-btn--hidden">End Session</button>
                 </div>
             </div>
@@ -98,9 +108,16 @@
                 <div class="notes-content">
                     <textarea id="session-notes-text" placeholder="Jot down your brilliant ideas here..."></textarea>
                 </div>
-                <div class="ai-chat-input-area" style="justify-content: flex-end; gap: 10px;">
-                    <button id="new-note-btn" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: 600; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; transition: background 0.2s;">New Note</button>
-                    <button id="save-notes-btn" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: 600;">Save Notes</button>
+                <div class="ai-chat-input-area notes-toolbar" style="justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" id="delete-note-btn" class="notes-icon-btn notes-icon-btn--danger" disabled aria-disabled="true" title="Delete note" aria-label="Delete note">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/><path d="M9 7V5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                    <button type="button" id="new-note-btn" class="notes-icon-btn notes-icon-btn--neutral" title="New note" aria-label="New note">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                    </button>
+                    <button type="button" id="save-notes-btn" class="notes-icon-btn notes-icon-btn--primary" title="Save note" aria-label="Save note">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h11l5 5v11a2 2 0 0 1 -2 2"/><path d="M17 21v-8h-10v8"/><path d="M7 3v6h8"/></svg>
+                    </button>
                 </div>
             </div>
 
@@ -219,56 +236,59 @@
     </div>
 
     <!-- ===== AI Summary Modal ===== -->
-    <div id="summary-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
-        <div id="summary-modal-card" style="background:var(--card-bg); border-radius:20px; width:90%; max-width:860px; height:85vh; display:flex; flex-direction:column; box-shadow:0 25px 60px rgba(0,0,0,0.35); overflow:hidden; animation:summaryPopIn 0.3s ease;">
-            <!-- Header -->
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 28px; border-bottom:1px solid var(--border-color); flex-shrink:0;">
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <div style="width:38px; height:38px; background:linear-gradient(135deg,#5e5ce6,#a78bfa); border-radius:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(94,92,230,0.4);">
+    <div id="summary-modal" class="summary-modal-overlay" style="display:none;">
+        <div id="summary-modal-card" class="summary-modal-shell">
+            <header class="summary-modal-header">
+                <div class="summary-modal-brand">
+                    <div class="summary-modal-icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6"/>
                         </svg>
                     </div>
-                    <div>
-                        <div style="font-weight:700; font-size:16px; color:var(--text-main);">AI Summary</div>
-                        <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Detailed explanation and complete summary of your materials</div>
+                    <div class="summary-modal-titles">
+                        <div class="summary-modal-title">Session recap</div>
+                        <div class="summary-modal-subtitle">Overview, themed highlights, and a takeaway — from your files, notes &amp; AI chat</div>
                     </div>
                 </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <select id="summary-language-select" style="background:rgba(94,92,230,0.1); border:1px solid rgba(94,92,230,0.3); color:var(--text-main); padding:8px 14px; border-radius:50px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; outline:none;">
+                <div class="summary-modal-actions">
+                    <select id="summary-language-select" class="summary-lang-select" title="Summary language">
                         <option value="arabic">Arabic</option>
                         <option value="english">English</option>
                     </select>
-                    <button id="summary-regenerate-btn" style="background:rgba(94,92,230,0.1); border:1px solid rgba(94,92,230,0.3); color:var(--primary-color); padding:8px 18px; border-radius:50px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.2s; font-family:inherit;">
+                    <button type="button" id="summary-regenerate-btn" class="summary-btn-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
                         Regenerate
                     </button>
-                    <button id="close-summary-btn" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:var(--text-muted); line-height:1; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:all 0.2s;">&times;</button>
+                    <button type="button" id="close-summary-btn" class="summary-btn-close" aria-label="Close summary">&times;</button>
                 </div>
-            </div>
-            <!-- Body -->
-            <div id="summary-body" style="flex:1; overflow-y:auto; padding:32px 36px; display:flex; flex-direction:column; gap:0;">
-                <!-- Loading State -->
-                <div id="summary-loading" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:20px;">
-                    <div style="display:flex; gap:8px;">
-                        <span class="summary-dot"></span>
-                        <span class="summary-dot"></span>
-                        <span class="summary-dot"></span>
+            </header>
+            <div id="summary-body" class="summary-modal-body">
+                <div id="summary-loading" class="summary-loading-state">
+                    <div class="ai-glowing-scanner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ai-brain-icon">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M15.5 13a3.5 3.5 0 0 0 -3.5 3.5v1a3.5 3.5 0 0 0 7 0v-1.8" />
+                            <path d="M8.5 13a3.5 3.5 0 0 1 3.5 3.5v1a3.5 3.5 0 0 1 -7 0v-1.8" />
+                            <path d="M17.5 16a3.5 3.5 0 0 0 0 -7h-.5" />
+                            <path d="M19 9.3v-2.8a3.5 3.5 0 0 0 -7 0" />
+                            <path d="M6.5 16a3.5 3.5 0 0 1 0 -7h.5" />
+                            <path d="M5 9.3v-2.8a3.5 3.5 0 0 1 7 0v10" />
+                        </svg>
+                        <div class="ai-scanner-line"></div>
                     </div>
-                    <p style="color:var(--text-muted); font-size:15px; margin:0;">Generating summary...</p>
+                    <p class="summary-loading-text">Building your structured summary…</p>
+                    <p class="summary-loading-hint">Pulling context from materials, notes, and chat</p>
                 </div>
-                <!-- Content (hidden until loaded) -->
-                <div id="summary-content" style="display:none;"></div>
+                <div id="summary-content" class="summary-modal-content" style="display:none;"></div>
             </div>
-            <!-- Footer -->
-            <div style="padding:16px 28px; border-top:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
-                <span id="summary-points-count" style="font-size:13px; color:var(--text-muted); font-weight:500;"></span>
-                <button id="summary-export-btn" style="background:linear-gradient(135deg,#5e5ce6,#a78bfa); color:#fff; border:none; padding:12px 28px; border-radius:50px; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all 0.25s; font-family:inherit; box-shadow:0 4px 14px rgba(94,92,230,0.35);">
+            <footer class="summary-modal-footer">
+                <span id="summary-points-count" class="summary-footer-meta"></span>
+                <button type="button" id="summary-export-btn" class="summary-btn-export">
                     Download Summary PDF
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12"/><path d="M7 10l5 5l5 -5"/><path d="M5 21h14"/></svg>
                 </button>
-            </div>
+            </footer>
         </div>
     </div>
 

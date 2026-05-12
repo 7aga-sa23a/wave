@@ -26,7 +26,7 @@
 
             const message = document.getElementById("message").value;
 
-            const response = await fetch("../api/chat.php", {
+            const response = await fetch("../../public/api/chat.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"

@@ -1,11 +1,14 @@
 // El settings el awaleya (Initial settings)
 const TOTAL_TIME = 25 * 60; // 25 dqiqa bel sawany
+const QUICKSUMMARY_STORAGE_KEY = "quicksummary-session";
 let timeLeft = TOTAL_TIME;
 let timerId = null;
 const ringCircumference = 2 * Math.PI * 140;
 
 const timeDisplay = document.getElementById("time-display");
 const mainBtn = document.getElementById("main-btn");
+const mainBtnIconPlay = mainBtn?.querySelector(".session-main-btn__icon--play");
+const mainBtnIconPause = mainBtn?.querySelector(".session-main-btn__icon--pause");
 const endBtn = document.getElementById("end-btn");
 const progressRing = document.getElementById("progress-ring");
 const endModal = document.getElementById("end-modal");
@@ -14,6 +17,198 @@ const modalConfirm = document.getElementById("modal-confirm");
 
 // nzbat toul el dayra bta3et el progress
 progressRing.style.strokeDasharray = ringCircumference;
+
+function setSessionMainButtonState(state) {
+  if (!mainBtn || !mainBtnIconPlay || !mainBtnIconPause) return;
+  if (state === "running") {
+    mainBtnIconPlay.classList.add("is-hidden");
+    mainBtnIconPause.classList.remove("is-hidden");
+    mainBtn.setAttribute("aria-label", "Pause session");
+    mainBtn.setAttribute("title", "Pause session");
+  } else if (state === "paused") {
+    mainBtnIconPlay.classList.remove("is-hidden");
+    mainBtnIconPause.classList.add("is-hidden");
+    mainBtn.setAttribute("aria-label", "Resume session");
+    mainBtn.setAttribute("title", "Resume session");
+  } else {
+    mainBtnIconPlay.classList.remove("is-hidden");
+    mainBtnIconPause.classList.add("is-hidden");
+    mainBtn.setAttribute("aria-label", "Start session");
+    mainBtn.setAttribute("title", "Start session");
+  }
+}
+
+function excerptFromMaterialFile(file) {
+  if (!file || !file.dataUrl || typeof file.dataUrl !== "string") return "";
+  const comma = file.dataUrl.indexOf(",");
+  if (comma === -1) return "";
+  const header = file.dataUrl.slice(0, comma);
+  const b64 = file.dataUrl.slice(comma + 1);
+  const mimeMatch = header.match(/data:([^;,]+)/i);
+  const mime = mimeMatch ? mimeMatch[1].toLowerCase().trim() : "";
+  const isText =
+    mime.startsWith("text/") ||
+    mime === "application/json" ||
+    mime === "application/xml" ||
+    mime.endsWith("+xml");
+  if (!isText) return "";
+  try {
+    const binary = atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const text = new TextDecoder("utf-8", { fatal: false }).decode(bytes);
+    return text.length > 12000 ? text.slice(0, 12000) : text;
+  } catch (e) {
+    return "";
+  }
+}
+
+function loadMaterialExcerptsFromIndexedDB() {
+  return new Promise((resolve) => {
+    if (!window.indexedDB) {
+      resolve([]);
+      return;
+    }
+    const openReq = indexedDB.open("CognifyDB", 1);
+    openReq.onerror = () => resolve([]);
+    openReq.onsuccess = () => {
+      const db = openReq.result;
+      if (!db.objectStoreNames.contains("materials")) {
+        db.close();
+        resolve([]);
+        return;
+      }
+      const tx = db.transaction("materials", "readonly");
+      const getAll = tx.objectStore("materials").getAll();
+      getAll.onerror = () => {
+        db.close();
+        resolve([]);
+      };
+      getAll.onsuccess = () => {
+        const rows = getAll.result || [];
+        const excerpts = [];
+        for (const file of rows) {
+          if (!file || typeof file.name !== "string") continue;
+          excerpts.push({
+            name: file.name,
+            excerpt: excerptFromMaterialFile(file),
+          });
+        }
+        db.close();
+        resolve(excerpts);
+      };
+    };
+  });
+}
+
+async function gatherFocusSessionContextForSummary() {
+  let notes = [];
+  try {
+    notes =
+      JSON.parse(localStorage.getItem("focus-session-notes-list") || "[]") ||
+      [];
+  } catch (e) {
+    notes = [];
+  }
+  const noteTexts = notes
+    .map((n) => (n && n.text ? String(n.text).trim() : ""))
+    .filter(Boolean);
+
+  const materialItems = document.querySelectorAll(
+    "#materials-list .sidebar-note-item span:last-child",
+  );
+  const materials = Array.from(materialItems)
+    .map((el) => el.textContent.trim())
+    .filter(Boolean);
+
+  const chat = [];
+  const aiMessagesEl = document.getElementById("ai-messages");
+  if (aiMessagesEl) {
+    aiMessagesEl.querySelectorAll(".ai-msg").forEach((msg) => {
+      if (msg.querySelector(".typing-animation")) return;
+      const role = msg.classList.contains("sent") ? "user" : "assistant";
+      const text = msg.textContent.replace(/\s+/g, " ").trim();
+      if (!text || text.length < 2) return;
+      chat.push({
+        role,
+        text: text.length > 2000 ? text.slice(0, 2000) : text,
+      });
+    });
+  }
+
+  const materialExcerpts = await loadMaterialExcerptsFromIndexedDB();
+
+  return {
+    notes: noteTexts,
+    materials,
+    materialExcerpts,
+    chat,
+  };
+}
+
+async function persistSessionSnapshotForQuickSummary() {
+  let notes = [];
+  try {
+    notes =
+      JSON.parse(localStorage.getItem("focus-session-notes-list") || "[]") ||
+      [];
+  } catch (e) {
+    notes = [];
+  }
+  const noteTexts = notes
+    .map((n) => (n && n.text ? String(n.text).trim() : ""))
+    .filter(Boolean);
+
+  const materialEls = document.querySelectorAll(
+    "#materials-list .sidebar-note-item span:last-child",
+  );
+  const materials = Array.from(materialEls)
+    .map((el) => el.textContent.trim())
+    .filter(Boolean);
+
+  const chat = [];
+  const aiMessagesEl = document.getElementById("ai-messages");
+  if (aiMessagesEl) {
+    aiMessagesEl.querySelectorAll(".ai-msg").forEach((msg) => {
+      if (msg.querySelector(".typing-animation")) return;
+      const role = msg.classList.contains("sent") ? "user" : "assistant";
+      const text = msg.textContent.replace(/\s+/g, " ").trim();
+      if (!text || text.length < 2) return;
+      chat.push({
+        role,
+        text: text.length > 2000 ? text.slice(0, 2000) : text,
+      });
+    });
+  }
+
+  const elapsedSeconds = Math.max(0, TOTAL_TIME - timeLeft);
+  const materialExcerpts = await loadMaterialExcerptsFromIndexedDB();
+
+  try {
+    sessionStorage.removeItem("session-quiz-questions");
+  } catch (e) {
+    /* ignore */
+  }
+
+  const snapshot = {
+    notes: noteTexts,
+    materials,
+    materialExcerpts,
+    chat,
+    elapsedSeconds,
+    totalSessionMinutes: Math.round(TOTAL_TIME / 60),
+  };
+  try {
+    sessionStorage.setItem(
+      QUICKSUMMARY_STORAGE_KEY,
+      JSON.stringify(snapshot),
+    );
+  } catch (e) {
+    /* quota or disabled */
+  }
+}
 
 function updateTimer() {
   const minutes = Math.floor(timeLeft / 60);
@@ -26,7 +221,7 @@ function updateTimer() {
 
 function startTimer() {
   if (timerId !== null) return;
-  mainBtn.textContent = "Pause Session";
+  setSessionMainButtonState("running");
   if (endBtn) endBtn.classList.remove("end-btn--hidden");
 
   timerId = setInterval(() => {
@@ -37,9 +232,10 @@ function startTimer() {
       clearInterval(timerId);
       timerId = null;
       if (endBtn) endBtn.classList.add("end-btn--hidden");
-      mainBtn.textContent = "Start Session";
-      // Redirect to quick summary when time is up
-      window.location.href = "quicksummary.php";
+      setSessionMainButtonState("start");
+      persistSessionSnapshotForQuickSummary().then(() => {
+        window.location.href = "quicksummary.php";
+      });
     }
   }, 1000);
 }
@@ -47,14 +243,15 @@ function startTimer() {
 function pauseTimer() {
   clearInterval(timerId);
   timerId = null;
-  mainBtn.textContent = "Resume Session";
+  setSessionMainButtonState("paused");
 }
 
 function endSession() {
   clearInterval(timerId);
   timerId = null;
-  // Redirect to quick summary
-  window.location.href = "quicksummary.php";
+  persistSessionSnapshotForQuickSummary().then(() => {
+    window.location.href = "quicksummary.php";
+  });
 }
 
 // ---- Events bta3et el zrayer ----
@@ -153,6 +350,7 @@ const aiMessages = document.getElementById("ai-messages");
 const notesText = document.getElementById("session-notes-text");
 const saveNotesBtn = document.getElementById("save-notes-btn");
 const newNoteBtn = document.getElementById("new-note-btn");
+const deleteNoteBtn = document.getElementById("delete-note-btn");
 const sidebarNotesCard = document.getElementById("sidebar-notes-card");
 const sidebarNotesPrev = document.getElementById("sidebar-notes-preview");
 
@@ -234,29 +432,105 @@ if (mainLayout) {
   const sidebarNotesList = document.getElementById("sidebar-notes-list");
   const sidebarAddNoteBtn = document.getElementById("sidebar-add-note-btn");
 
+  const NOTES_TRASH_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/><path d="M9 7V5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2"/></svg>`;
+
+  const NOTES_NOTEBOOK_ICON = `<span class="sidebar-note-preview__ico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/><path d="M13 8l2 0"/><path d="M13 12l2 0"/></svg></span>`;
+
+  const NOTES_SAVE_DISK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h11l5 5v11a2 2 0 0 1 -2 2"/><path d="M17 21v-8h-10v8"/><path d="M7 3v6h8"/></svg>`;
+
+  const NOTES_SAVE_CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  const NOTES_SIDEBAR_EMPTY_HTML = `<div class="sidebar-notes-empty" role="status" title="Tap + to add a note"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/><path d="M13 8l2 0"/><path d="M13 12l2 0"/><path d="M12 16h.01"/></svg><span class="notes-sr-only">No notes yet. Use the plus button to add one.</span></div>`;
+
+  function syncNotesToolbar() {
+    if (!deleteNoteBtn) return;
+    const editing = !!currentNoteId;
+    deleteNoteBtn.disabled = !editing;
+    deleteNoteBtn.setAttribute("aria-disabled", editing ? "false" : "true");
+  }
+
+  function persistNotesAndRefreshSidebar() {
+    localStorage.setItem(
+      "focus-session-notes-list",
+      JSON.stringify(notesData),
+    );
+    renderSidebarNotes();
+    syncNotesToolbar();
+  }
+
+  function deleteNoteById(noteId) {
+    if (noteId == null) return;
+    if (
+      typeof window.confirm === "function" &&
+      !confirm("Delete this note? This cannot be undone.")
+    ) {
+      return;
+    }
+    notesData = notesData.filter((n) => n.id !== noteId);
+    if (currentNoteId === noteId) {
+      currentNoteId = null;
+      if (notesText) notesText.value = "";
+    }
+    persistNotesAndRefreshSidebar();
+  }
+
   function renderSidebarNotes() {
     if (!sidebarNotesList) return;
     sidebarNotesList.innerHTML = "";
 
     if (notesData.length === 0) {
-      sidebarNotesList.innerHTML =
-        '<p class="tip-text" style="font-size: 12px; margin: 0;">No notes yet.</p>';
+      sidebarNotesList.innerHTML = NOTES_SIDEBAR_EMPTY_HTML;
+      syncNotesToolbar();
       return;
     }
 
-    notesData.forEach((note) => {
-      const item = document.createElement("div");
-      item.className = "sidebar-note-item";
-      item.textContent = note.text
-        ? note.text.replace(/\n/g, " ")
-        : "Empty Note";
-      item.addEventListener("click", () => {
+    notesData.forEach((note, index) => {
+      const row = document.createElement("div");
+      row.className = "sidebar-note-row";
+
+      const preview = document.createElement("button");
+      preview.type = "button";
+      preview.className = "sidebar-note-preview";
+      const previewSnippet = note.text
+        ? note.text.replace(/\s+/g, " ").trim().slice(0, 140)
+        : "";
+      preview.innerHTML =
+        NOTES_NOTEBOOK_ICON +
+        `<span class="sidebar-note-preview__num" aria-hidden="true">${index + 1}</span>`;
+      preview.setAttribute(
+        "aria-label",
+        previewSnippet
+          ? `Open note ${index + 1}: ${previewSnippet}`
+          : `Open note ${index + 1} (empty)`,
+      );
+      preview.setAttribute(
+        "title",
+        previewSnippet ||
+          ("Empty note " + String(index + 1)),
+      );
+      preview.addEventListener("click", () => {
         currentNoteId = note.id;
-        if (notesText) notesText.value = note.text;
+        if (notesText) notesText.value = note.text || "";
         openPanel("notes");
+        syncNotesToolbar();
       });
-      sidebarNotesList.appendChild(item);
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "sidebar-note-delete";
+      del.innerHTML = NOTES_TRASH_SVG;
+      del.setAttribute("aria-label", "Delete note");
+      del.setAttribute("title", "Delete note");
+      del.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        deleteNoteById(note.id);
+      });
+
+      row.appendChild(preview);
+      row.appendChild(del);
+      sidebarNotesList.appendChild(row);
     });
+    syncNotesToolbar();
   }
 
   // Load el notes el adema
@@ -267,6 +541,7 @@ if (mainLayout) {
     currentNoteId = null;
     if (notesText) notesText.value = "";
     openPanel("notes");
+    syncNotesToolbar();
   }
 
   if (sidebarAddNoteBtn) {
@@ -302,30 +577,38 @@ if (mainLayout) {
         JSON.stringify(notesData),
       );
       renderSidebarNotes();
+      syncNotesToolbar();
 
-      // bn-wary el user enak saved (feedback)
-      const originalText = saveNotesBtn.textContent;
-      saveNotesBtn.textContent = "Saved!";
-      saveNotesBtn.style.background = "#10b981"; // a5dar
+      saveNotesBtn.innerHTML = NOTES_SAVE_CHECK_SVG;
+      saveNotesBtn.classList.add("notes-icon-btn--saved");
       setTimeout(() => {
-        saveNotesBtn.textContent = originalText;
-        saveNotesBtn.style.background = ""; // n-raga3 kolo zay ma kan
-      }, 2000);
+        saveNotesBtn.innerHTML = NOTES_SAVE_DISK_SVG;
+        saveNotesBtn.classList.remove("notes-icon-btn--saved");
+      }, 1600);
     });
   }
 
   // e5tiyary: n-5aly el card kolha b-click tfta7 el panel
   if (sidebarNotesCard && sidebarNotesList) {
-    // bn-dos 3la el mkan el fady bs msh 3ala el items nfsaha
+    // bn-dos 3ala el mkan el fady bs msh 3ala el صف أو زر الإضافة
     sidebarNotesCard.addEventListener("click", (e) => {
       if (
-        e.target.closest(".sidebar-note-item") ||
+        e.target.closest(".sidebar-note-row") ||
         e.target.closest("#sidebar-add-note-btn")
       )
         return;
       openPanel("notes");
     });
   }
+
+  if (deleteNoteBtn) {
+    deleteNoteBtn.addEventListener("click", () => {
+      if (!currentNoteId) return;
+      deleteNoteById(currentNoteId);
+    });
+  }
+
+  syncNotesToolbar();
 
   // Mantiq b3t rasayel el AI
   // ===== AI CHAT =====
@@ -535,79 +818,115 @@ function closeSummaryModal() {
   summaryModal.style.display = "none";
 }
 
-// bn-generate el summary mn el AI
+function renderStructuredSummary(data) {
+  const lang = data.language
+    ? data.language
+    : summaryLanguageSelect && summaryLanguageSelect.value === "english"
+      ? "english"
+      : "arabic";
+  const dir = lang === "arabic" ? "rtl" : "ltr";
+  const overviewLabel =
+    lang === "arabic" ? "نظرة سريعة" : "At a glance";
+  const themesLabel =
+    lang === "arabic" ? "أهم النقاط" : "Key themes";
+  const bridgeLabel =
+    lang === "arabic" ? "خلاصة الجلسة" : "Session takeaway";
+
+  const highlights = Array.isArray(data.highlights) ? data.highlights : [];
+  const hlHtml = highlights
+    .map(
+      (h, i) => `
+    <article class="summary-highlight-card" style="animation-delay:${0.05 * i}s">
+      <div class="summary-highlight-index">${i + 1}</div>
+      <div class="summary-highlight-body">
+        <h4 class="summary-highlight-title">${escapeForSummary(h.title || "")}</h4>
+        <p class="summary-highlight-text">${escapeForSummary(h.text || "")}</p>
+      </div>
+    </article>`,
+    )
+    .join("");
+
+  const bridge = (data.session_bridge || "").trim();
+  const themesSection =
+    highlights.length > 0
+      ? `<h3 class="summary-section-heading">${themesLabel}</h3>
+      <div class="summary-highlights-grid">${hlHtml}</div>`
+      : "";
+
+  const overviewSection = (data.overview || "").trim()
+    ? `<section class="summary-overview-block" aria-label="${overviewLabel}">
+        <span class="summary-overview-label">${overviewLabel}</span>
+        <p class="summary-overview-text">${escapeForSummary(data.overview || "")}</p>
+      </section>`
+    : "";
+
+  summaryContent.setAttribute("dir", dir);
+  summaryContent.innerHTML = `
+    <div class="summary-layout">
+      ${overviewSection}
+      ${themesSection}
+      ${
+        bridge
+          ? `<aside class="summary-bridge" aria-label="${bridgeLabel}">
+        <span class="summary-bridge-label">${bridgeLabel}</span>
+        <p class="summary-bridge-text">${escapeForSummary(bridge)}</p>
+      </aside>`
+          : ""
+      }
+    </div>`;
+}
+
+// bn-generate el summary mn el AI (structured: overview + themed cards + bridge)
 async function generateSummary() {
-  // N-show el loading w n-hide el content
   summaryLoading.style.display = "flex";
   summaryContent.style.display = "none";
   summaryContent.innerHTML = "";
   summaryCount.textContent = "";
 
-  // bn-gather el materials names mn el sidebar 3ashan n-eb3atha lel AI
-  const materialItems = document.querySelectorAll(
-    "#materials-list .sidebar-note-item span:last-child",
-  );
-  const materialNames = Array.from(materialItems)
-    .map((el) => el.textContent.trim())
-    .filter(Boolean);
-
-  const contextHint =
-    materialNames.length > 0
-      ? `The user has uploaded these study materials: ${materialNames.join(", ")}. `
-      : "";
-
-  const selectedLanguage =
+  const lang =
     summaryLanguageSelect && summaryLanguageSelect.value === "english"
-      ? "English"
-      : "Arabic";
-
-  const prompt = `${contextHint}Generate a complete and detailed study summary of the uploaded PDF/materials, not a short recap. Cover the main ideas, definitions, important explanations, relationships between concepts, and practical takeaways a student needs to study from. Make each point explanatory (2 to 4 sentences), clear, and useful for revision. Return 10 to 15 detailed points. The output language must be strictly ${selectedLanguage}. Format your response STRICTLY as a JSON array of strings, where each string is one detailed summary point. Example: ["Detailed point one...", "Detailed point two..."]. Do not include any text outside the JSON array.`;
+      ? "english"
+      : "arabic";
 
   try {
-    const response = await fetch("../../public/api/chat.php", {
+    const ctx = await gatherFocusSessionContextForSummary();
+    const response = await fetch("../../public/api/focus-session-summary.php", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "message=" + encodeURIComponent(prompt),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...ctx, language: lang }),
     });
 
     const data = await response.json();
 
-    if (data.choices && data.choices[0]) {
-      let raw = data.choices[0].message.content.trim();
-
-      // bn-extract el JSON array lw fe 7aga zeyada
-      const match = raw.match(/\[[\s\S]*\]/);
-      if (match) raw = match[0];
-
-      let points = [];
-      try {
-        points = JSON.parse(raw);
-      } catch {
-        // lw msh JSON, bn-split 3la el newlines
-        points = raw
-          .split("\n")
-          .filter((l) => l.trim().length > 3)
-          .map((l) => l.replace(/^[-*\d.]+\s*/, "").trim());
-      }
-
-      // bn-render el items
-      summaryContent.innerHTML = points
-        .map(
-          (point, i) => `
-        <div class="summary-item">
-          <span class="summary-num">${i + 1}</span>
-          <p class="summary-text">${escapeForSummary(point)}</p>
-        </div>
-      `,
-        )
-        .join("");
-
-      summaryCount.textContent = `${points.length} detailed summary points`;
-      summaryLoading.style.display = "none";
-      summaryContent.style.display = "block";
-    } else {
-      showSummaryError("Couldn't generate a summary. Please try again.");
+    if (data.error) {
+      showSummaryError(
+        typeof data.error === "string"
+          ? data.error
+          : "Couldn't generate a summary. Please try again.",
+      );
+      return;
     }
+
+    const hasBody =
+      (data.overview && String(data.overview).trim()) ||
+      (Array.isArray(data.highlights) && data.highlights.length > 0);
+    if (!hasBody) {
+      showSummaryError("Couldn't generate a summary. Please try again.");
+      return;
+    }
+
+    renderStructuredSummary(data);
+    const n = Array.isArray(data.highlights) ? data.highlights.length : 0;
+    summaryCount.textContent =
+      lang === "arabic"
+        ? n === 1
+          ? "نقطة رئيسية واحدة"
+          : `${n} نقاط رئيسية`
+        : n === 1
+          ? "1 themed highlight"
+          : `${n} themed highlights`;
+    summaryLoading.style.display = "none";
+    summaryContent.style.display = "block";
   } catch (err) {
     showSummaryError("Connection error. Check your internet and try again.");
     console.error(err);
@@ -625,7 +944,8 @@ function escapeForSummary(text) {
 // bn-show error state
 function showSummaryError(msg) {
   summaryLoading.style.display = "none";
-  summaryContent.style.display = "flex";
+  summaryContent.style.display = "block";
+  summaryContent.removeAttribute("dir");
   summaryContent.innerHTML = `
     <div class="summary-error">
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#ef4444;opacity:0.7">
@@ -637,8 +957,9 @@ function showSummaryError(msg) {
 }
 
 async function exportSummaryAsPdf() {
-  const points = summaryContent.querySelectorAll(".summary-item .summary-text");
-  if (!points.length) {
+  const overviewEl = summaryContent.querySelector(".summary-overview-text");
+  const cards = summaryContent.querySelectorAll(".summary-highlight-card");
+  if (!overviewEl && cards.length === 0) {
     showSummaryError("Generate a summary first, then export it as PDF.");
     return;
   }
@@ -675,21 +996,49 @@ async function exportSummaryAsPdf() {
   dateRow.style.opacity = "0.7";
   dateRow.style.margin = "0 0 18px 0";
 
-  const list = document.createElement("ol");
-  list.style.margin = "0";
-  list.style.paddingInlineStart = selectedLanguage === "Arabic" ? "20px" : "24px";
-
-  points.forEach((pointEl) => {
-    const li = document.createElement("li");
-    li.textContent = pointEl.textContent.trim();
-    li.style.marginBottom = "10px";
-    li.style.fontSize = "14px";
-    list.appendChild(li);
-  });
-
   wrapper.appendChild(title);
   wrapper.appendChild(dateRow);
-  wrapper.appendChild(list);
+
+  if (overviewEl && overviewEl.textContent.trim()) {
+    const intro = document.createElement("p");
+    intro.textContent = overviewEl.textContent.trim();
+    intro.style.fontSize = "15px";
+    intro.style.margin = "0 0 18px 0";
+    intro.style.lineHeight = "1.65";
+    wrapper.appendChild(intro);
+  }
+
+  cards.forEach((card) => {
+    const ht = card.querySelector(".summary-highlight-title");
+    const tx = card.querySelector(".summary-highlight-text");
+    const h2 = document.createElement("h2");
+    h2.textContent = ht ? ht.textContent.trim() : "";
+    h2.style.fontSize = "16px";
+    h2.style.margin = "14px 0 6px 0";
+    const p = document.createElement("p");
+    p.textContent = tx ? tx.textContent.trim() : "";
+    p.style.fontSize = "14px";
+    p.style.margin = "0 0 10px 0";
+    p.style.lineHeight = "1.6";
+    wrapper.appendChild(h2);
+    wrapper.appendChild(p);
+  });
+
+  const bridgeEl = summaryContent.querySelector(".summary-bridge-text");
+  if (bridgeEl && bridgeEl.textContent.trim()) {
+    const bTitle = document.createElement("p");
+    bTitle.textContent =
+      selectedLanguage === "Arabic" ? "خلاصة الجلسة" : "Session takeaway";
+    bTitle.style.fontSize = "13px";
+    bTitle.style.fontWeight = "700";
+    bTitle.style.margin = "18px 0 6px 0";
+    const bBody = document.createElement("p");
+    bBody.textContent = bridgeEl.textContent.trim();
+    bBody.style.fontSize = "14px";
+    bBody.style.margin = "0";
+    wrapper.appendChild(bTitle);
+    wrapper.appendChild(bBody);
+  }
 
   const fileName =
     selectedLanguage === "Arabic"
@@ -780,6 +1129,14 @@ if (closeSummaryBtn) {
 
 if (regenBtn) {
   regenBtn.addEventListener("click", generateSummary);
+}
+
+if (summaryLanguageSelect) {
+  summaryLanguageSelect.addEventListener("change", () => {
+    if (summaryModal && summaryModal.style.display === "flex") {
+      generateSummary();
+    }
+  });
 }
 
 if (summaryExportBtn) {
