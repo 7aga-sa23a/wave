@@ -148,13 +148,18 @@ html[data-theme="dark"] .content p {
   color: #a8a5d4;
 }
 
+html[data-theme="dark"] .signup-form {
+  background: var(--card-bg, #222230);
+  border: 1px solid var(--card-border, #2a2a38);
+}
+
 html[data-theme="dark"] .signup-form label {
   color: #c8c8d8;
 }
 
 html[data-theme="dark"] .signup-form input {
-  background: #222230;
-  border-color: #3a3a4a;
+  background: #1c1c28;
+  border: 1px solid #3a3a4a;
   color: #f4f4f8;
 }
 
@@ -167,12 +172,34 @@ html[data-theme="dark"] .signup-form button {
   color: #fff;
 }
 
+html[data-theme="dark"] .signup-form p {
+  color: var(--primary, #818cf8);
+}
+
 html[data-theme="dark"] .signup-form a {
-  color: #a5b4fc;
+  color: var(--indigo, #a5b4fc);
+}
+
+html[data-theme="dark"] .forget-password-massege {
+  background: #2a2a38;
+  border-color: #3a3a4a;
+}
+
+html[data-theme="dark"] .forget-password-massege p {
+  color: #a8a5d4;
 }
 
 html[data-theme="dark"] .agree {
   color: #8b8ba0;
+}
+
+html[data-theme="dark"] .back-to-sign-in a,
+html[data-theme="dark"] .back-to-sign-in-container svg {
+  color: var(--primary, #818cf8);
+}
+
+html[data-theme="dark"] .check-email-container p {
+  color: var(--text-light, #a8a5d4);
 }
 
 /* ----- Dashboard / upload (styles3.css) ----- */
@@ -191,6 +218,72 @@ html[data-theme="dark"] .back-Dashboard {
 html[data-theme="dark"] .uploading-material-container,
 html[data-theme="dark"] .study-session {
   color: #e8e8f0;
+}
+
+/* Fix white cards and fonts in dark mode for Dashboard / Upload pages */
+html[data-theme="dark"] .score-days-container,
+html[data-theme="dark"] .daily-insight,
+html[data-theme="dark"] .circle-card,
+html[data-theme="dark"] .image,
+html[data-theme="dark"] .pdf,
+html[data-theme="dark"] .txt,
+html[data-theme="dark"] .drag-file {
+  background: var(--card-bg, #222230);
+  border-color: var(--card-border, #2a2a38);
+}
+
+html[data-theme="dark"] .score-days-container p,
+html[data-theme="dark"] .daily-insight p,
+html[data-theme="dark"] .circle-card p,
+html[data-theme="dark"] .image p,
+html[data-theme="dark"] .pdf p,
+html[data-theme="dark"] .txt p,
+html[data-theme="dark"] .drag-file p,
+html[data-theme="dark"] .uploading-material-container p {
+  color: var(--text-light, #a8a5d4);
+}
+
+html[data-theme="dark"] .score-days-container h2,
+html[data-theme="dark"] .daily-insight h2,
+html[data-theme="dark"] .circle-card h2,
+html[data-theme="dark"] .circle-header h2,
+html[data-theme="dark"] .image h2,
+html[data-theme="dark"] .pdf h2,
+html[data-theme="dark"] .txt h2,
+html[data-theme="dark"] .drag-file h2,
+html[data-theme="dark"] .uploading-material-container h1,
+html[data-theme="dark"] .uploading-material-container h2 {
+  color: var(--text, #f4f4f8);
+}
+
+html[data-theme="dark"] .photo-svg,
+html[data-theme="dark"] .svg3 {
+  background: #2a2a38;
+}
+
+html[data-theme="dark"] .photo-svg {
+  color: var(--primary, #818cf8);
+}
+
+html[data-theme="dark"] .person {
+  background: #2a2a38;
+}
+
+html[data-theme="dark"] .person.active {
+  background: #1c1c28;
+  border-color: var(--primary, #818cf8);
+}
+
+html[data-theme="dark"] .person-info h3 {
+  color: var(--text, #f4f4f8);
+}
+
+html[data-theme="dark"] .rank {
+  color: var(--text-light, #a8a5d4);
+}
+
+html[data-theme="dark"] .details {
+  color: var(--text-light, #a8a5d4);
 }
 
 @media (max-width: 768px) {
