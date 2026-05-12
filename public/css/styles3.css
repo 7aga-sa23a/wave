@@ -419,7 +419,7 @@ body {
 }
 
 .skip-btn {
-    background-color: rgb(191, 187, 187);
+    background-color: rgb(223, 220, 220);
     color: black;
     transition: background-color 0.2s, transform 0.2s;
 }
