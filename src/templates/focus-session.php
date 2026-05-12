@@ -1,13 +1,14 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>focus session</title>
-        <link rel="stylesheet" href="../css/styles-session.css?v=3" />
+        <link rel="stylesheet" href="<?= CSS_URL ?>/styles-session.css?v=3" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-        <script src="../js/auth.js"></script>
+        <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
     <body>
 <div class="container">
@@ -272,7 +273,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
-    <script src="../js/focus-session-materials.js"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
+    <script src="<?= JS_URL ?>/focus-session-materials.js"></script>
     </body>
     </html>

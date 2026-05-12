@@ -1,13 +1,14 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>forgot password</title>
-    <link rel="stylesheet" href="../css/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <script src="../js/auth.js"></script>
+    <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
 <body>
     <div class="allPage">
@@ -40,7 +41,7 @@
         </div>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        <button class="send-reset-button" type="button"onclick = "location.href='../pages/email-check.php'">Send Reset Link</button>
+        <button class="send-reset-button" type="button"onclick = "location.href='<?= TEMPLATES_URL ?>/email-check.php'">Send Reset Link</button>
     </form>
     <div class="back-to-sign-in-container">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left">
@@ -49,10 +50,10 @@
 	<path d="M5 12l4 4" />
 	<path d="M5 12l4 -4" />
     </svg>
-    <p class="back-to-sign-in"><a href="../pages/signIn.php">Back to sign in</a></p>
+    <p class="back-to-sign-in"><a href="<?= TEMPLATES_URL ?>/signIn.php">Back to sign in</a></p>
     </div>
     </div>
     
-    <script src="../js/script.js"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
 </body>
 </html>

@@ -1,13 +1,14 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>forgot password</title>
-    <link rel="stylesheet" href="../css/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <script src="../js/auth.js"></script>
+    <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
 <body>
     <div class="allPage">
@@ -23,10 +24,10 @@
         <p class="p3">We've sent a password reset link to your email address.</p>
         <p class="p4">Didn't receive the email? Check your spam folder or try again.</p>
         </div>
-        <button class="back-to-sign-in-button" type="button" onclick ="location.href = '../pages/signIn.php'">Back to Sign In</button>
+        <button class="back-to-sign-in-button" type="button" onclick ="location.href = '<?= TEMPLATES_URL ?>/signIn.php'">Back to Sign In</button>
         <button class="resend-email" type="submit">Resend Email</button>
     </form>
     </div>
-    <script src="../js/script.js"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
 </body>
 </html>

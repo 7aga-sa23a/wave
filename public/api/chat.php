@@ -23,7 +23,7 @@ function getApiKeyFromEnv(): string
         return $directKey;
     }
 
-    $envPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . ".env";
+    $envPath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . ".env";
     if (!file_exists($envPath)) {
         return "";
     }

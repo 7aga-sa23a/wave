@@ -1,22 +1,23 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cognify - Profile</title>
-    <link rel="stylesheet" href="../css/profile.css" />
-    <link rel="stylesheet" href="../css/navbar.css" />
-    <link rel="stylesheet" href="../css/navbarsticky.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
-    <link rel="stylesheet" href="../css/profile.css" />
-        <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
+        <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
 
-      <script src="../js/auth.js"></script>
+      <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
   <body>
     <div id="navbar"></div>
-    <script src="../components/navbar.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="<?= COMPONENTS_URL ?>/navbar.js"></script>
+    <script src="<?= JS_URL ?>/main.js"></script>
 
     <div class="profile-page">
       <div class="page-title">
@@ -29,7 +30,7 @@
         <div class="profile-left">
           <!-- Profile Header Card -->
           <div class="profile-card profile-header-card">
-            <div class="profile-avatar"><img src="../assets/img/b49352280919218a2934154cabbf4d02.jpg" alt="Profile" /></div>
+            <div class="profile-avatar"><img src="<?= IMG_URL ?>/b49352280919218a2934154cabbf4d02.jpg" alt="Profile" /></div>
             <div class="profile-info">
               <h2>Alex Thompson</h2>
               <p class="profile-email">alex.thompson@email.com</p>
@@ -391,6 +392,6 @@
     </div>
 
     <div id="footer"></div>
-    <script src="../components/footer.js"></script>
+    <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
   </body>
 </html>

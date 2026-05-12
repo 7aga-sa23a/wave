@@ -1,9 +1,10 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Sign In - Cognify</title>
-    <link rel="stylesheet" href="../css/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -42,7 +43,7 @@
         <p class="agree">By continuing, you agree to our Terms of Service and Privacy Policy</p>
     </div>
 
-    <script src="../js/signIn.js"></script>
+    <script src="<?= JS_URL ?>/signIn.js"></script>
 </body>
 </html>
 

@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <title>Cognify</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
-    <script src="../js/auth.js"></script>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/index.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
 <body>
         <div id="navbar"></div>
     
-    <script src="../components/navbar.js?v=4"></script>
+    <script src="<?= COMPONENTS_URL ?>/navbar.js?v=4"></script>
 
     <section class="section1">
 
@@ -168,8 +169,8 @@ instant summaries, and smart quizzes that help you retain more in less time.
         <p>© 2026 Cognify. All rights reserved.</p>
     </section>
     <div id="footer"></div>
-    <script src="../components/footer.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <script src="<?= JS_URL ?>/main.js"></script>
     
 </body>
 </html>

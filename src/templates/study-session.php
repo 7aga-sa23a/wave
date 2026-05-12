@@ -1,21 +1,22 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>study session</title>
-        <link rel="stylesheet" href="../css/styles3.css" />
+        <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/navbar.css" />
-    <link rel="stylesheet" href="../css/navbarsticky.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
-    <script src="../js/auth.js"></script>
+            <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
     <body>
                 <div id="navbar"></div>
-    <script src="../components/navbar.js?v=4"></script>
+    <script src="<?= COMPONENTS_URL ?>/navbar.js?v=4"></script>
     <section class="section1">
         <section class="dashboard">
         <section class="study-session">
@@ -191,14 +192,14 @@
         </div>
         </div>
 
-        <button class="circle-btn" onclick="window.location.href='../pages/Circle.php'">View Full Circle</button>
+        <button class="circle-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/Circle.php'">View Full Circle</button>
 
     </section>
         </section>
         <div id="footer"></div>
     <script src="script.js"></script>
-        <script src="../components/footer.js"></script>
-    <script src="../js/main.js"></script>
+        <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <script src="<?= JS_URL ?>/main.js"></script>
 
     </body>
     </html>

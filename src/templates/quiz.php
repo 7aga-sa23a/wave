@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <?php
 include("../data/questions.php");
 ?>
@@ -14,9 +15,9 @@ include("../data/questions.php");
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/quiz.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-      <script src="../js/auth.js"></script>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/quiz.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+      <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
   <body>
     <div class="page">
@@ -61,6 +62,6 @@ include("../data/questions.php");
 <script>
   const questions = <?php echo json_encode($questions); ?>;
 </script>
-    <script src="../js/quiz.js"></script>
+    <script src="<?= JS_URL ?>/quiz.js"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
   <!doctype html>
   <html lang="en">
     <head>
@@ -10,8 +11,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet"
       />
-      <link rel="stylesheet" href="../css/results.css" />
-        <script src="../js/auth.js"></script>
+      <link rel="stylesheet" href="<?= CSS_URL ?>/results.css" />
+        <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
     <body>
       <div class="results-card">
@@ -189,6 +190,6 @@
         </div>
       </div>
 
-      <script src="../js/results.js"></script>
+      <script src="<?= JS_URL ?>/results.js"></script>
     </body>
   </html>

@@ -1,20 +1,21 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cognify - Achievements</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/navbarsticky.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
-    <link rel="stylesheet" href="../css/profile.css" />
-    <link rel="stylesheet" href="../css/achievements.css" />
-      <script src="../js/auth.js"></script>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/achievements.css" />
+      <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
   <body>
     <div id="navbar"></div>
-    <script src="../components/navbar.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="<?= COMPONENTS_URL ?>/navbar.js"></script>
+    <script src="<?= JS_URL ?>/main.js"></script>
 
     <div class="achievements-page">
       <a href="Profile.php" class="back-link">
@@ -646,6 +647,6 @@
     </div>
 
     <div id="footer"></div>
-    <script src="../components/footer.js"></script>
+    <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
   </body>
 </html>

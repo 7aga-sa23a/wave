@@ -368,7 +368,7 @@ if (mainLayout) {
     aiMessages.scrollTop = aiMessages.scrollHeight;
 
     try {
-      const response = await fetch("../api/chat.php", {
+      const response = await fetch("../../public/api/chat.php", {
         method: "POST",
 
         headers: {
@@ -564,7 +564,7 @@ async function generateSummary() {
   const prompt = `${contextHint}Generate a complete and detailed study summary of the uploaded PDF/materials, not a short recap. Cover the main ideas, definitions, important explanations, relationships between concepts, and practical takeaways a student needs to study from. Make each point explanatory (2 to 4 sentences), clear, and useful for revision. Return 10 to 15 detailed points. The output language must be strictly ${selectedLanguage}. Format your response STRICTLY as a JSON array of strings, where each string is one detailed summary point. Example: ["Detailed point one...", "Detailed point two..."]. Do not include any text outside the JSON array.`;
 
   try {
-    const response = await fetch("../api/chat.php", {
+    const response = await fetch("../../public/api/chat.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: "message=" + encodeURIComponent(prompt),

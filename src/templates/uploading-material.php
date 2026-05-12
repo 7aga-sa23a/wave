@@ -1,16 +1,17 @@
+<?php require_once __DIR__ . '/../core/config.php'; ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>uploading materials</title>
-        <link rel="stylesheet" href="../css/styles3.css" />
+        <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-        <script src="../js/auth.js"></script>
+        <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
     <body>
-        <a href="../pages/study-session.php" class="back-Dashboard">
+        <a href="<?= TEMPLATES_URL ?>/study-session.php" class="back-Dashboard">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6"/></svg>
         Back to Dashboard
         </a>
@@ -94,6 +95,6 @@
             <div id="files-list" style="display:flex; flex-direction:column; gap:10px;"></div>
         </div>
 
-        <script src="../js/uploading-material.js"></script>
+        <script src="<?= JS_URL ?>/uploading-material.js"></script>
     </body>
     </html>
