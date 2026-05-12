@@ -3,6 +3,7 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <?php require __DIR__ . '/partials/theme-head.php'; ?>
         <title>focus session</title>
         <link rel="stylesheet" href="<?= CSS_URL ?>/styles-session.css?v=3" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -202,6 +203,7 @@
         </div>
     </div>
 
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
     <script src="<?= JS_URL ?>/script.js"></script>
 
     <!-- File Viewer Modal -->

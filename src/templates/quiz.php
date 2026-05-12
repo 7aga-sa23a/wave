@@ -8,6 +8,7 @@ include("../data/questions.php");
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>Quiz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,6 +18,7 @@ include("../data/questions.php");
     />
     <link rel="stylesheet" href="<?= CSS_URL ?>/quiz.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
       <?php require __DIR__ . '/paths.php'; ?>
       <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
@@ -64,5 +66,6 @@ include("../data/questions.php");
   const questions = <?php echo json_encode($questions); ?>;
 </script>
     <script src="<?= JS_URL ?>/quiz.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
   </body>
 </html>

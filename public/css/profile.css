@@ -97,10 +97,6 @@
   height: 100%;
   object-fit: cover;
 }
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-bottom: 10px;
-}
 
 .profile-info h2 {
   font-size: 20px;
@@ -346,7 +342,7 @@
 .great-progress-card h4 {
   font-size: 16px;
   font-weight: 700;
-  color: var(--white);
+  color: #ffffff;
   margin: 0 0 8px;
 }
 
@@ -372,4 +368,102 @@
   .achievements-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ----- Appearance (theme switcher on profile) ----- */
+.profile-theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--divider);
+  flex-wrap: wrap;
+}
+
+.profile-theme-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.profile-theme-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font);
+}
+
+.profile-theme-hint {
+  font-size: 13px;
+  color: var(--text-light);
+  font-family: var(--font);
+  line-height: 1.35;
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 4px;
+  background: var(--divider);
+  padding: 4px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.theme-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.theme-btn.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+}
+
+.theme-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.theme-btn.ripple::after {
+  transform: scale(2);
+  opacity: 0;
+}
+
+@keyframes profileThemeFade {
+  0% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body.theme-switching {
+  animation: profileThemeFade 0.35s ease forwards;
 }

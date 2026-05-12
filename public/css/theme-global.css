@@ -1,0 +1,208 @@
+/**
+ * Global appearance: dark/light via html[data-theme="dark"].
+ * Load after page stylesheets so variables and overrides apply everywhere.
+ */
+
+html[data-theme="dark"] {
+  --primary: #818cf8;
+  --primary-light: rgba(129, 140, 248, 0.2);
+  --light: #1e1e2a;
+  --text: #f4f4f8;
+  --text-light: #a8a5d4;
+  --white: #1c1c28;
+  --gradient-main: linear-gradient(135deg, #6366f1, #8b86ff);
+  --bg: linear-gradient(to bottom, #12121a, #15151f, #1a1a24);
+  --gold: #fbbf24;
+  --red: #f87171;
+  --green: #34d399;
+  --gray: #9ca3af;
+  --bronze: #fb923c;
+  --indigo: #a5b4fc;
+  --dark: #9ca3af;
+  --card-border: #2a2a38;
+  --card-bg: #222230;
+  --achievement-border: #818cf8;
+  --divider: #2a2a38;
+  --qs-label: #a8a5d4;
+  --qs-value: #f4f4f8;
+  --danger-bg: #2d1818;
+  --danger-bg-hover: #3d2222;
+  --danger-border: #7f1d1d;
+  --stat-purple-bg: rgba(124, 58, 237, 0.28);
+  --stat-purple: #c4b5fd;
+  --stat-green-bg: rgba(16, 185, 129, 0.22);
+  --stat-orange-bg: rgba(249, 115, 22, 0.22);
+  --stat-orange: #fdba74;
+}
+
+html[data-theme="dark"] body {
+  background: #12121a;
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] body:has(.results-card) {
+  background: linear-gradient(145deg, #312e81, #1e1b4b);
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .navbar {
+  background: #1c1c28;
+  border-bottom: 1px solid var(--card-border, #2a2a38);
+}
+
+html[data-theme="dark"] .logo {
+  color: var(--primary, #818cf8);
+}
+
+html[data-theme="dark"] .nav-links a {
+  color: #c8c8d8;
+}
+
+html[data-theme="dark"] .nav-links a:hover {
+  background: rgba(129, 140, 248, 0.12);
+}
+
+html[data-theme="dark"] .nav-links .active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+html[data-theme="dark"] .user img {
+  border-color: var(--primary);
+}
+
+html[data-theme="dark"] .navbar.scrolled {
+  background: rgba(28, 28, 40, 0.92);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="dark"] .footer {
+  background: #1c1c28;
+  border-top-color: var(--card-border, #2a2a38);
+}
+
+html[data-theme="dark"] .footer-col h4 {
+  color: var(--text, #f4f4f8);
+}
+
+html[data-theme="dark"] .footer-col a:hover {
+  color: var(--primary, #818cf8);
+}
+
+/* ----- Landing (index.css) ----- */
+html[data-theme="dark"] .section1 {
+  background-color: #16161f;
+}
+
+html[data-theme="dark"] h1 span {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .intro .p1,
+html[data-theme="dark"] .intro p {
+  color: #c4c4d8;
+}
+
+html[data-theme="dark"] .con1 {
+  border-color: #3a3a4a;
+  background: rgba(34, 34, 48, 0.6);
+}
+
+html[data-theme="dark"] .con1 h2 {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .con1 p {
+  color: #a8a5d4;
+}
+
+html[data-theme="dark"] .con1 svg {
+  color: #a5b4fc;
+  background-color: #2a2a38;
+}
+
+html[data-theme="dark"] .section3 {
+  background-color: #1a1a24;
+}
+
+html[data-theme="dark"] .section3 h2,
+html[data-theme="dark"] .section3 h4 {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .p3 {
+  color: #a8a5d4;
+}
+
+/* ----- Auth pages (styles2.css) ----- */
+html[data-theme="dark"] body .allPage {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .content h2 {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .content p {
+  color: #a8a5d4;
+}
+
+html[data-theme="dark"] .signup-form label {
+  color: #c8c8d8;
+}
+
+html[data-theme="dark"] .signup-form input {
+  background: #222230;
+  border-color: #3a3a4a;
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .signup-form input::placeholder {
+  color: #6b6b80;
+}
+
+html[data-theme="dark"] .signup-form button {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+}
+
+html[data-theme="dark"] .signup-form a {
+  color: #a5b4fc;
+}
+
+html[data-theme="dark"] .agree {
+  color: #8b8ba0;
+}
+
+/* ----- Dashboard / upload (styles3.css) ----- */
+html[data-theme="dark"] .head h1 {
+  color: #f4f4f8;
+}
+
+html[data-theme="dark"] .head p {
+  color: #a8a5d4;
+}
+
+html[data-theme="dark"] .back-Dashboard {
+  color: #a5b4fc;
+}
+
+html[data-theme="dark"] .uploading-material-container,
+html[data-theme="dark"] .study-session {
+  color: #e8e8f0;
+}
+
+@media (max-width: 768px) {
+  html[data-theme="dark"] .navbar {
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  html[data-theme="dark"] .navbar.scrolled {
+    background: #1c1c28;
+  }
+
+  html[data-theme="dark"] .nav-links .active {
+    color: var(--primary, #818cf8);
+  }
+}
