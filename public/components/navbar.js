@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     [APP_PAGES.CIRCLE]: 1,
     [APP_PAGES.PROFILE]: 2,
     [APP_PAGES.SETTINGS]: 2,
-    [APP_PAGES.ACHIEVEMENTS]: 2
+    [APP_PAGES.ACHIEVEMENTS]: 2,
+    [APP_PAGES.SHOP]: 3
   };
 
   const activeIndex = pages[currentPage] !== undefined ? pages[currentPage] : -1;
@@ -44,6 +45,16 @@ document.addEventListener("DOMContentLoaded", function () {
           </svg>
           <span>Circle</span>
         </a>
+        <a href="${_TEMPLATES_URL}/${APP_PAGES.SHOP}" class="${activeIndex === 3 ? "active" : ""}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M17 17h-11v-14h-2" />
+            <path d="M6 5l14 1l-1 7h-13" />
+          </svg>
+          <span>Shop</span>
+        </a>
         <a href="${_TEMPLATES_URL}/${APP_PAGES.PROFILE}" class="${activeIndex === 2 ? "active" : ""}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -62,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <nav class="navbar">
       <div class="logo" style="cursor:pointer;" onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.INDEX}'">Cognify</div>
       <div style="display: flex; gap: 20px; align-items: center; margin-right: 10rem;">
+        <a href="${_TEMPLATES_URL}/${APP_PAGES.SHOP}" style="text-decoration: none; color: #555; font-weight: 500; font-family: 'Inter', sans-serif; font-size: 16px;">Shop</a>
         <a href="${_TEMPLATES_URL}/${APP_PAGES.SIGNIN}" style="text-decoration: none; color: #4F46E5; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 16px;">Sign In</a>
         <button onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.SIGNUP}'" style="background-color: #4F46E5; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">Get Started</button>
       </div>
