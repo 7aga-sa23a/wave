@@ -422,3 +422,82 @@ body {
   color: var(--text-light);
   margin: 0;
 }
+
+@media (max-width: 1024px) {
+  .circle-content {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  
+  .your-circle {
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .your-circle {
+    margin-left: 1rem;
+    margin-top: 2rem;
+  }
+
+  .your-circle h1 {
+    font-size: 28px;
+  }
+
+  .your-circle p {
+    font-size: 15px;
+  }
+
+  .circle-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 30px;
+  }
+
+  .left-col,
+  .right-col {
+    width: 100%;
+  }
+
+  .top-performer {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .tp-left {
+    flex-direction: column;
+  }
+
+  .tp-right {
+    margin-top: 10px;
+  }
+
+  .ranking-card {
+    height: auto;
+    padding: 15px;
+  }
+
+  .ranking-number {
+    font-size: 40px;
+    margin: 30px 0;
+  }
+
+  .lb-name {
+    font-size: 16px;
+  }
+
+  .lb-stat {
+    display: none;
+  }
+
+  .lb-item {
+    flex-wrap: wrap;
+  }
+
+  .keep-going-card {
+    margin-bottom: 6rem;
+  }
+}
