@@ -539,3 +539,67 @@ h1 span {
     padding: 0;
     margin-right: 10px;
 }
+
+@media (max-width: 768px) {
+    .frsth {
+        font-size: 2em;
+    }
+
+    h1 span {
+        font-size: 36px;
+    }
+
+    .section1 {
+        padding: 20px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .intro p {
+        width: 90%;
+        font-size: 1rem;
+    }
+
+    .stats {
+        flex-direction: column;
+        padding: 20px;
+        width: 90%;
+    }
+
+    .stats h1 {
+        font-size: 1.8em;
+        margin: 10px;
+    }
+
+    .container1 {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .con1 {
+        margin: 15px 0;
+        padding: 20px;
+    }
+
+    .con2 {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .block1 {
+        margin: 20px 0;
+    }
+
+    .section5 {
+        flex-direction: column;
+        padding: 25px 20px;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .button1, .button2 {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+    }
+}

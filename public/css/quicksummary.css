@@ -236,3 +236,27 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+@media (max-width: 768px) {
+  .qs-card {
+    padding: 30px 20px 24px;
+  }
+
+  .qs-title {
+    font-size: 24px;
+  }
+
+  .qs-subtitle {
+    font-size: 13px;
+  }
+
+  .qs-footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+
+  .qs-btn {
+    justify-content: center;
+  }
+}

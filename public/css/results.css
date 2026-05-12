@@ -263,3 +263,32 @@ body {
 .btn-restart:hover {
   transform: translateY(-1px);
 }
+
+@media (max-width: 768px) {
+  .res-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .res-bottom-row {
+    grid-template-columns: 1fr;
+  }
+
+  .res-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .res-points-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .res-points-value {
+    font-size: 22px;
+  }
+
+  .res-title {
+    font-size: 22px;
+  }
+}
