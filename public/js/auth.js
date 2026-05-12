@@ -15,9 +15,10 @@ const APP_PAGES = {
   QUICKSUMMARY: 'quicksummary.php',
   QUIZ: 'quiz.php',
   RESULTS: 'results.php',
-  NOT_FOUND: '404.php'
+  NOT_FOUND: '404.php',
+  SHOP: 'shop.php'
 };
-const _publicPages = [APP_PAGES.INDEX, APP_PAGES.SIGNIN, APP_PAGES.SIGNUP, APP_PAGES.FORGOT_PASSWORD, APP_PAGES.EMAIL_CHECK, ''];
+const _publicPages = [APP_PAGES.INDEX, APP_PAGES.SIGNIN, APP_PAGES.SIGNUP, APP_PAGES.FORGOT_PASSWORD, APP_PAGES.EMAIL_CHECK, APP_PAGES.SHOP, ''];
 const _currentPage = window.location.pathname.split("/").pop() || APP_PAGES.INDEX;
 const _isLoggedIn  = localStorage.getItem('loggedIn') === 'true';
 const _TEMPLATES_URL = window.APP_PATHS?.TEMPLATES_URL || '';
