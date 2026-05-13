@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../core/config.php'; ?>
+<?php require_once __DIR__ . '/../core/config.php'; 
+require_once __DIR__ . '/../core/queries.php';
+?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -96,102 +98,34 @@
         </div>
 
         <!-- person -->
-        <div class="person">
-        <p class="rank">#1</p>
-        <div class="avatar">E</div>
-        <div class="person-info">
-            <h3>Emma K.</h3>
+        <!-- leaderboard loop -->
+<?php
+$medals = [1 => 'gold', 2 => 'silver', 3 => 'bronze'];
+foreach($leaderboard as $index => $user):
+    $rank = $index + 1;
+    $initial = strtoupper($user['name'][0]);
+    $isYou = isset($_SESSION['user_id']) && ($user['id'] == $_SESSION['user_id']);
+    $medalClass = $medals[$rank] ?? '';
+?>
+<div class="lb-item <?= $isYou ? 'active' : '' ?>">
+    <div class="lb-rank <?= $medalClass ?>">
+        #<?= $rank ?>
+    </div>
+    <div class="lb-avatar <?= $isYou ? 'you' : 'dark' ?>">
+        <?= htmlspecialchars($initial) ?>
+    </div>
+    <div class="lb-info">
+        <p class="lb-name"><?= $isYou ? 'You' : htmlspecialchars($user['name']) ?></p>
+        <div class="lb-meta">
+            <span>🔥 <?= number_format($user['points']) ?></span>
+            <span>⭐ <?= $user['streak'] ?>d</span>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
 
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 3100</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  18d</span>
-            </div>
-        </div>
-        </div>
-
-        <!-- active -->
-        <div class="person active">
-        <p class="rank">#2</p>
-
-        <div class="avatar purple">A</div>
-
-        <div class="person-info">
-            <h3>You</h3>
-
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 2890</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  15d</span>
-            </div>
-        </div>
-        </div>
-
-        <div class="person">
-        <p class="rank">#1</p>
-        <div class="avatar">E</div>
-        <div class="person-info">
-            <h3>Emma K.</h3>
-
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 3100</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  18d</span>
-            </div>
-        </div>
-        </div>
-        <div class="person">
-        <p class="rank">#1</p>
-        <div class="avatar">E</div>
-        <div class="person-info">
-            <h3>Emma K.</h3>
-
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 3100</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  18d</span>
-            </div>
-        </div>
-        </div>
-        <div class="person">
-        <p class="rank">#1</p>
-        <div class="avatar">E</div>
-        <div class="person-info">
-            <h3>Emma K.</h3>
-
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 3100</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  18d</span>
-            </div>
-        </div>
-        </div>
-        <div class="person">
-        <p class="rank">#1</p>
-        <div class="avatar">E</div>
-        <div class="person-info">
-            <h3>Emma K.</h3>
-
-            <div class="details">
-            <span> <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 10.941c2.333 -3.308 .167 -7.823 -1 -8.941c0 3.395 -2.235 5.299 -3.667 6.706c-1.43 1.408 -2.333 3.294 -2.333 5.588c0 3.704 3.134 6.706 7 6.706c3.866 0 7 -3.002 7 -6.706c0 -1.712 -1.232 -4.403 -2.333 -5.588c-2.084 3.353 -3.257 3.353 -4.667 2.235" /></svg> 3100</span>
-            <span><svg class="fire-icon"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" />
-                    </svg>  18d</span>
-            </div>
-        </div>
-        </div>
-
+<!-- <button class="view-btn">View Full Circle</button> -->
+</div> <!-- .circle-card -->
         <button class="circle-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/Circle.php'">View Full Circle</button>
 
     </section>
