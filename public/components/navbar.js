@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (isLoggedIn) {
     navbarEl.innerHTML = `
     <nav class="navbar">
-      <div class="logo" style="cursor:pointer;" onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.STUDY_SESSION}'">Cognify</div>
+      <div class="logo" style="cursor:pointer;" onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.STUDY_SESSION}'"><img src="${_IMG_URL}/Container.png" alt="Wave Logo" width="120" height="auto">
+</div>
 
       <div class="nav-links">
         <a href="${_TEMPLATES_URL}/${APP_PAGES.STUDY_SESSION}" class="${activeIndex === 0 ? "active" : ""}">
@@ -71,7 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     navbarEl.innerHTML = `
     <nav class="navbar">
-      <div class="logo" style="cursor:pointer;" onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.INDEX}'">Cognify</div>
+      <div class="logo" style="cursor:pointer;" onclick="window.location.href='${_TEMPLATES_URL}/${APP_PAGES.INDEX}'"><img src="${_IMG_URL}/Container.png" alt="Wave Logo" width="120" height="auto">
+</div>
       <div style="display: flex; gap: 20px; align-items: center; margin-right: 10rem;">
         <a href="${_TEMPLATES_URL}/${APP_PAGES.SHOP}" style="text-decoration: none; color: #555; font-weight: 500; font-family: 'Inter', sans-serif; font-size: 16px;">Shop</a>
         <a href="${_TEMPLATES_URL}/${APP_PAGES.SIGNIN}" style="text-decoration: none; color: #4F46E5; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 16px;">Sign In</a>
