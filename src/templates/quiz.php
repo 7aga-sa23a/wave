@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../core/config.php';
-include("../data/questions.php");
+require_once __DIR__ . '/../helpers/questions.php'
 ?>
 
 <!doctype html>

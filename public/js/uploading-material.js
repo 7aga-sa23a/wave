@@ -102,8 +102,20 @@ function removeFile(index) {
 // El functions de b-tetnada mn el HTML b-shakl mobasher
 window.removeFile = removeFile;
 
-window.skipToSession = function() { window.location.href = `${_TEMPLATES_URL}/${APP_PAGES.FOCUS_SESSION}`; }
+window.skipToSession = function() { 
+    const baseUrl = window.APP_PATHS?.TEMPLATES_URL || '';
+    window.location.href = `${baseUrl}/focus-session.php`; 
+}
 
 window.continueToSession = function() {
-    saveToDB(() => { window.location.href = `${_TEMPLATES_URL}/${APP_PAGES.FOCUS_SESSION}`; });
+    const nav = () => { 
+        const baseUrl = window.APP_PATHS?.TEMPLATES_URL || '';
+        window.location.href = `${baseUrl}/focus-session.php`; 
+    };
+    try {
+        saveToDB(nav);
+    } catch (error) {
+        console.error('Failed to save to IndexedDB:', error);
+        nav();
+    }
 }

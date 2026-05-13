@@ -52,7 +52,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
     </section >
     <section class="section2">
         <div>
-            <h1>Everything you need to excel</h1>
+            <h1>Everything you need to excel</h1>   
             <p class="p2">Powerful features designed to make studying more effective</p>
         </div>
             <div class="container1">
