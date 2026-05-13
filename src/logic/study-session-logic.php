@@ -6,8 +6,11 @@ require_once __DIR__ . '/../core/connect.php'; # Database connector
 // error_reporting(0);
 // ini_set('display_errors', 0);
 
+# Start the session to load the $_SESSION array
+session_start();
+
 # If session is not started, redirect to login page
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['id'])) {
     # FOR TESTING
     # # starting a dump session    
     // session_start();
@@ -97,7 +100,12 @@ foreach ($last_week_sessions as $session) {
 }
 
 # # Calculate percentage
-$focus_time_percentage = round(($this_week_focus_time - $last_week_focus_time) / $last_week_focus_time * 100);
+# # # Avoid division by zero
+if ($last_week_focus_time == 0) {
+    $focus_time_percentage = 0;
+} else {
+    $focus_time_percentage = round(($this_week_focus_time - $last_week_focus_time) / $last_week_focus_time * 100);
+}
 
 # # Update session to include focus time percentage
 $_SESSION['focus_time_percentage'] = $focus_time_percentage;
@@ -121,6 +129,11 @@ $user_friends_ids = [];
 while ($friends = $user_friends->fetch_assoc()) {
     array_push($user_friends_ids, $friends['sender_id']);
     array_push($user_friends_ids, $friends['receiver_id']);
+}
+
+# # Check if user has no friends
+if (count($user_friends_ids) == 0) {
+    array_push($user_friends_ids, $_SESSION['id']);
 }
 
 $user_friends_ids = array_values(array_unique($user_friends_ids));

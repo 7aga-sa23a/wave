@@ -17,7 +17,7 @@ require_once __DIR__ . '/paths.php';
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
-    <script src="<?= JS_URL ?>/auth.js"></script>
+    <script src="<?= JS_URL ?>/auth.js?v=<?= time() ?>"></script>
 </head>
 
 <body>

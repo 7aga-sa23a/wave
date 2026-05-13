@@ -1,6 +1,6 @@
 <?php
 session_start();
-session_unset();
+// session_unset();
 require_once __DIR__ . '/../core/connect.php';
 require_once __DIR__ . '/../core/config.php';
 
@@ -26,6 +26,7 @@ if (isset($_POST["login"])) {
 
         if ($user_password == $row["password"]) {
             $_SESSION["user_id"]   = $row["id"];
+            $_SESSION["id"]        = $row["id"];
             $_SESSION["user_name"] = $row["name"];
             $_SESSION["email"] = $row["email"];
             $_SESSION["password"] = $row["password"];
