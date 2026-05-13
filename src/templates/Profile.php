@@ -45,7 +45,7 @@ require __DIR__ . '/partials/theme-head.php';
           </div>
 
           <div class="profile-info">
-            <h2 id="user-name"><?= $_SESSION['name'] ?></h2>
+            <h2 id="user-name"><?= $_SESSION['user_name'] ?></h2>
             <p class="profile-email" id="user-email"><?= $_SESSION['email'] ?></p>
 
             <div class="profile-badges">
