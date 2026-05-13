@@ -3,13 +3,15 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <?php require __DIR__ . '/partials/theme-head.php'; ?>
         <title>uploading materials</title>
         <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
+        <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
         <?php require __DIR__ . '/paths.php'; ?>
-        <script src="<?= JS_URL ?>/auth.js"></script>
+        <script src="<?= JS_URL ?>/auth.js?v=<?= time() ?>"></script>
 </head>
     <body>
         <a href="<?= TEMPLATES_URL ?>/study-session.php" class="back-Dashboard">
@@ -97,5 +99,6 @@
         </div>
 
         <script src="<?= JS_URL ?>/uploading-material.js"></script>
+        <?php require __DIR__ . '/partials/theme-foot.php'; ?>
     </body>
     </html>

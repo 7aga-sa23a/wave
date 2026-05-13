@@ -211,3 +211,31 @@ button:hover {
     margin-bottom: 30px;
 
 }
+
+@media (max-width: 768px) {
+    .signup-form {
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    .back-to-sign-in {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .back-to-sign-in-container {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .back-to-sign-in-container svg {
+        right: 1rem;
+    }
+
+    .allPage {
+        padding: 20px;
+        height: auto;
+        min-height: 100vh;
+    }
+}

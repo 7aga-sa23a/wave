@@ -4,12 +4,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>Cognify - Account Settings</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/settings.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
       <?php require __DIR__ . '/paths.php'; ?>
       <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
@@ -260,5 +262,6 @@
 
     <div id="footer"></div>
     <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
   </body>
 </html>

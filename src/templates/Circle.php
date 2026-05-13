@@ -21,14 +21,16 @@ if (!isset($_SESSION['user_id'])) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>Cognify</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
       <?php require __DIR__ . '/paths.php'; ?>
       <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
-  <body style="background: linear-gradient(to top, #ffffff, #efeff8)">
+  <body>
     <div id="navbar"></div>
     <script src="<?= COMPONENTS_URL ?>/navbar.js"></script>
     <script src="<?= JS_URL ?>/main.js"></script>
@@ -238,6 +240,7 @@ if (!isset($_SESSION['user_id'])) {
         <div id="footer"></div>
 
     <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
   </body>
 </html>
 

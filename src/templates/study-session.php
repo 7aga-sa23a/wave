@@ -3,20 +3,21 @@ require_once __DIR__ . '/../core/config.php';
 require_once __DIR__ .  '/../logic/study-session-logic.php';
 require_once __DIR__ . '/paths.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <title>study session</title>
-    <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>study session</title>
+        <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <?php require __DIR__ . '/paths.php'; ?>
     <script src="<?= JS_URL ?>/auth.js?v=<?= time() ?>"></script>
 </head>
 
@@ -154,9 +155,9 @@ require_once __DIR__ . '/paths.php';
             </section>
         </section>
         <div id="footer"></div>
-        <script src=\"<?= JS_URL ?>/script.js\"></script>
+    <script src="<?= JS_URL ?>/script.js"></script>
         <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
-        <script src="<?= JS_URL ?>/main.js"></script>
-</body>
-
-</html>
+    <script src="<?= JS_URL ?>/main.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
+    </body>
+    </html>

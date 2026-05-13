@@ -4,7 +4,7 @@ let timeLeft = TOTAL_TIME;
 let timerId = null;
 const ringCircumference = 2 * Math.PI * 140;
 
-const _TEMPLATES_URL = window.APP_PATHS?.TEMPLATES_URL || '';
+// const _TEMPLATES_URL = window.APP_PATHS?.TEMPLATES_URL || '';
 const timeDisplay  = document.getElementById('time-display');
 const mainBtn      = document.getElementById('main-btn');
 const endBtn       = document.getElementById('end-btn');
@@ -90,52 +90,6 @@ endModal.addEventListener('click', (e) => {
 });
 
 updateTimer();
-
-// ===== Taghyeer el theme (Theme Switcher) =====
-const btnLight = document.getElementById('btn-light');
-const btnDark  = document.getElementById('btn-dark');
-const htmlEl   = document.documentElement;
-
-function applyTheme(theme) {
-    // Fade animation
-    document.body.classList.add('theme-switching');
-    setTimeout(() => document.body.classList.remove('theme-switching'), 350);
-
-    if (theme === 'dark') {
-        htmlEl.setAttribute('data-theme', 'dark');
-        btnDark.classList.add('active');
-        btnLight.classList.remove('active');
-    } else {
-        htmlEl.removeAttribute('data-theme');
-        btnLight.classList.add('active');
-        btnDark.classList.remove('active');
-    }
-
-    localStorage.setItem('session-theme', theme);
-}
-
-function triggerRipple(btn) {
-    btn.classList.remove('ripple');
-    void btn.offsetWidth; // reflow
-    btn.classList.add('ripple');
-    setTimeout(() => btn.classList.remove('ripple'), 400);
-}
-
-if (btnLight && btnDark) {
-    btnLight.addEventListener('click', () => {
-        triggerRipple(btnLight);
-        applyTheme('light');
-    });
-
-    btnDark.addEventListener('click', () => {
-        triggerRipple(btnDark);
-        applyTheme('dark');
-    });
-
-    // N-apply el theme elly metsayev lma el saf7a t-load
-    const savedTheme = localStorage.getItem('session-theme') || 'light';
-    applyTheme(savedTheme);
-}
 
 // ===== Mantiq el Panels el ganbaya (AI & Notes & Music) =====
 const btnAi         = document.getElementById('btn-ai');
@@ -231,6 +185,7 @@ if (mainLayout) {
 
     const sidebarNotesList = document.getElementById('sidebar-notes-list');
     const sidebarAddNoteBtn = document.getElementById('sidebar-add-note-btn');
+    const deleteNoteBtn = document.getElementById('delete-note-btn');
 
     function renderSidebarNotes() {
         if (!sidebarNotesList) return;
@@ -244,10 +199,45 @@ if (mainLayout) {
         notesData.forEach(note => {
             const item = document.createElement('div');
             item.className = 'sidebar-note-item';
-            item.textContent = note.text ? note.text.replace(/\n/g, ' ') : 'Empty Note';
+            item.style.display = 'flex';
+            item.style.justifyContent = 'space-between';
+            item.style.alignItems = 'center';
+            item.style.paddingRight = '5px';
+
+            const textSpan = document.createElement('span');
+            textSpan.style.whiteSpace = 'nowrap';
+            textSpan.style.overflow = 'hidden';
+            textSpan.style.textOverflow = 'ellipsis';
+            textSpan.style.flex = '1';
+            textSpan.textContent = note.text ? note.text.replace(/\n/g, ' ') : 'Empty Note';
+
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = '&times;';
+            delBtn.style.background = 'transparent';
+            delBtn.style.border = 'none';
+            delBtn.style.color = '#dc2626';
+            delBtn.style.fontSize = '16px';
+            delBtn.style.cursor = 'pointer';
+            delBtn.style.marginLeft = '5px';
+            delBtn.title = 'Delete Note';
+
+            delBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notesData = notesData.filter(n => n.id !== note.id);
+                localStorage.setItem('focus-session-notes-list', JSON.stringify(notesData));
+                if (currentNoteId === note.id) {
+                    startNewNote();
+                }
+                renderSidebarNotes();
+            });
+
+            item.appendChild(textSpan);
+            item.appendChild(delBtn);
+
             item.addEventListener('click', () => {
                 currentNoteId = note.id;
                 if (notesText) notesText.value = note.text;
+                if (deleteNoteBtn) deleteNoteBtn.style.display = 'block';
                 openPanel('notes');
             });
             sidebarNotesList.appendChild(item);
@@ -261,6 +251,7 @@ if (mainLayout) {
     function startNewNote() {
         currentNoteId = null;
         if (notesText) notesText.value = '';
+        if (deleteNoteBtn) deleteNoteBtn.style.display = 'none';
         openPanel('notes');
     }
 
@@ -290,6 +281,7 @@ if (mainLayout) {
                 const newNote = { id: Date.now(), text: text };
                 notesData.push(newNote);
                 currentNoteId = newNote.id;
+                if (deleteNoteBtn) deleteNoteBtn.style.display = 'block';
             }
 
             localStorage.setItem('focus-session-notes-list', JSON.stringify(notesData));
@@ -303,6 +295,18 @@ if (mainLayout) {
                 saveNotesBtn.textContent = originalText;
                 saveNotesBtn.style.background = ''; // n-raga3 kolo zay ma kan
             }, 2000);
+        });
+    }
+
+    // Delete el Note mn gowa el panel
+    if (deleteNoteBtn) {
+        deleteNoteBtn.addEventListener('click', () => {
+            if (currentNoteId) {
+                notesData = notesData.filter(n => n.id !== currentNoteId);
+                localStorage.setItem('focus-session-notes-list', JSON.stringify(notesData));
+                startNewNote();
+                renderSidebarNotes();
+            }
         });
     }
 
@@ -346,5 +350,45 @@ if (mainLayout) {
         aiInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendAiMessage();
         });
+    }
+
+    // ===== Summary Modal Logic =====
+    const btnQuiz = document.getElementById('btn-quiz');
+    const summaryModal = document.getElementById('summary-modal');
+    const closeSummaryBtn = document.getElementById('close-summary-btn');
+    const generateSummaryBtn = document.getElementById('generate-summary-btn');
+    const summaryLoading = document.getElementById('summary-loading');
+    const summaryContent = document.getElementById('summary-content');
+    const summaryEmpty = document.getElementById('summary-empty');
+
+    if (btnQuiz && summaryModal) {
+        btnQuiz.addEventListener('click', () => {
+            summaryModal.style.display = 'flex';
+        });
+        
+        closeSummaryBtn.addEventListener('click', () => {
+            summaryModal.style.display = 'none';
+        });
+
+        summaryModal.addEventListener('click', (e) => {
+            if (e.target === summaryModal) summaryModal.style.display = 'none';
+        });
+
+        if (generateSummaryBtn) {
+            generateSummaryBtn.addEventListener('click', () => {
+                summaryEmpty.style.display = 'none';
+                summaryContent.style.display = 'none';
+                summaryLoading.style.display = 'block';
+                generateSummaryBtn.disabled = true;
+                generateSummaryBtn.style.opacity = '0.5';
+
+                setTimeout(() => {
+                    summaryLoading.style.display = 'none';
+                    summaryContent.style.display = 'block';
+                    generateSummaryBtn.disabled = false;
+                    generateSummaryBtn.style.opacity = '1';
+                }, 2000);
+            });
+        }
     }
 }

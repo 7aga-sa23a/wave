@@ -5,8 +5,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>Sign In - Cognify</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/styles2.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/error.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,6 +55,7 @@
         <p class="agree">By continuing, you agree to our Terms of Service and Privacy Policy</p>
     </div>
 
-    <script src="../js/signIn.js"></script>
+    <script src="<?= JS_URL ?>/signIn.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
 </body>
 </html>

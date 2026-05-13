@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>404 - Page Not Found | Cognify</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -330,6 +331,7 @@
             .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
         }
     </style>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
 </head>
 <body>
 
@@ -412,5 +414,6 @@
 
     </div>
 
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
 </body>
 </html>

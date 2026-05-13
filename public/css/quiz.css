@@ -392,3 +392,32 @@ body {
 .quiz-modal-btn-secondary:hover {
   background: var(--primary-light);
 }
+
+@media (max-width: 768px) {
+  .quiz-card {
+    padding: 20px 16px 16px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
+
+  .question-box {
+    padding: 20px;
+  }
+
+  .option {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .quiz-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-next {
+    width: 100%;
+    justify-content: center;
+  }
+}
