@@ -20,7 +20,7 @@ session_start();
     'created_at' => date('Y-m-d H:i:s')
 ];*/
 
-header('Content-Type: application/json');
+
 
 // Check login
 if (!isset($_SESSION['user_id'])) {
