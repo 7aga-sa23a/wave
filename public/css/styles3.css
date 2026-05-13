@@ -419,7 +419,7 @@ body {
 }
 
 .skip-btn {
-    background-color: rgb(191, 187, 187);
+    background-color: rgb(223, 220, 220);
     color: black;
     transition: background-color 0.2s, transform 0.2s;
 }
@@ -440,4 +440,155 @@ body {
     text-decoration: none;
     margin-bottom: 16px;
     transition: color 0.2s;
+}
+
+@media (max-width: 1024px) {
+    .back-Dashboard {
+        padding-left: 3rem;
+    }
+
+    .dashboard {
+        padding: 4rem 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .study-session {
+        width: 100%;
+    }
+
+    .circle-card {
+        width: 100%;
+    }
+
+    .score-days-container {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .back-Dashboard {
+        padding-left: 1rem;
+        padding-top: 1.5rem;
+    }
+
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .head h1 {
+        font-size: 24px;
+    }
+
+    .head p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .session {
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 25px 20px;
+    }
+
+    .session h2 {
+        font-size: 20px;
+    }
+
+    .session p {
+        font-size: 13px;
+    }
+
+    .session button {
+        width: 100%;
+        padding: 14px 20px;
+    }
+
+    .points-score-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .score-svg,
+    .score-svg2 {
+        width: 44px;
+        height: 44px;
+    }
+
+    .score-days-inner h2 {
+        font-size: 20px;
+    }
+
+    .daily-insight {
+        flex-direction: column;
+        gap: 15px;
+        padding: 16px;
+        text-align: center;
+    }
+
+    .insight-text h2 {
+        font-size: 18px;
+    }
+
+    .insight-text p {
+        font-size: 13px;
+    }
+
+    .circle-card {
+        padding: 16px;
+    }
+
+    .circle-header h2 {
+        font-size: 20px;
+    }
+
+    .person {
+        padding: 12px;
+    }
+
+    .person-info h3 {
+        font-size: 14px;
+    }
+
+    .details {
+        font-size: 12px;
+    }
+
+    .circle-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .uploading-material-container {
+        padding: 15px;
+    }
+
+    .study-materials {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .image,
+    .pdf,
+    .txt {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .drag-file {
+        width: 100%;
+        height: auto;
+        min-height: 180px;
+    }
+
+    .drag-continue-btns {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
 }

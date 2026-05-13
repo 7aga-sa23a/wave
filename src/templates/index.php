@@ -3,12 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <title>Cognify</title>
     <link rel="stylesheet" href="<?= CSS_URL ?>/index.css" />
     <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
     <?php require __DIR__ . '/paths.php'; ?>
     <script src="<?= JS_URL ?>/auth.js"></script>
 </head>
@@ -50,7 +52,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
     </section >
     <section class="section2">
         <div>
-            <h1>Everything you need to excel</h1>
+            <h1>Everything you need to excel</h1>   
             <p class="p2">Powerful features designed to make studying more effective</p>
         </div>
             <div class="container1">
@@ -156,7 +158,7 @@ instant summaries, and smart quizzes that help you retain more in less time.
     
     <section class="section5">
         <div class="cognify">
-            <span><svg class="svg-cog" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brain">
+            <div class="svg-cog-container"><svg class="svg-cog" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brain">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M15.5 13a3.5 3.5 0 0 0 -3.5 3.5v1a3.5 3.5 0 0 0 7 0v-1.8" />
                 <path d="M8.5 13a3.5 3.5 0 0 1 3.5 3.5v1a3.5 3.5 0 0 1 -7 0v-1.8" />
@@ -164,14 +166,16 @@ instant summaries, and smart quizzes that help you retain more in less time.
                 <path d="M19 9.3v-2.8a3.5 3.5 0 0 0 -7 0" />
                 <path d="M6.5 16a3.5 3.5 0 0 1 0 -7h.5" />
                 <path d="M5 9.3v-2.8a3.5 3.5 0 0 1 7 0v10" />
-            </svg></span>
-            <h3>Cognify</h3>
+            </svg>
         </div>
-        <p>© 2026 Cognify. All rights reserved.</p>
+            <h3>Wave</h3>
+        </div>
+        <p>© 2026 Wave. All rights reserved.</p>
     </section>
     <div id="footer"></div>
     <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
     <script src="<?= JS_URL ?>/main.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
     
 </body>
 </html>

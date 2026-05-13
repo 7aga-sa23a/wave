@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <?php require __DIR__ . '/partials/theme-head.php'; ?>
     <title>404 - Page Not Found | Cognify</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -330,6 +331,7 @@
             .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
         }
     </style>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
 </head>
 <body>
 
@@ -349,18 +351,10 @@
 
         <!-- Logo -->
         <a href="<?= TEMPLATES_URL ?>/index.php" class="logo">
-            <div class="logo-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M15.5 13a3.5 3.5 0 0 0 -3.5 3.5v1a3.5 3.5 0 0 0 7 0v-1.8"/>
-                    <path d="M8.5 13a3.5 3.5 0 0 1 3.5 3.5v1a3.5 3.5 0 0 1 -7 0v-1.8"/>
-                    <path d="M17.5 16a3.5 3.5 0 0 0 0 -7h-.5"/>
-                    <path d="M19 9.3v-2.8a3.5 3.5 0 0 0 -7 0"/>
-                    <path d="M6.5 16a3.5 3.5 0 0 1 0 -7h.5"/>
-                    <path d="M5 9.3v-2.8a3.5 3.5 0 0 1 7 0v10"/>
-                </svg>
+            
+            <div class="cognify">
+                <img src="<?=IMG_URL ?>/Container.png" alt="wave Logo" width="150" height="auto">
             </div>
-            <span class="logo-text">Cognify</span>
         </a>
 
         <!-- Illustration -->
@@ -420,5 +414,6 @@
 
     </div>
 
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
 </body>
 </html>

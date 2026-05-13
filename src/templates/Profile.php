@@ -1,20 +1,21 @@
 <?php
 require_once __DIR__ . '/../core/config.php';
 require __DIR__ . '/../logic/get_profile.php';
+require __DIR__ . '/partials/theme-head.php';
 ?>
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cognify - Profile</title>
-
-
-  <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
-  <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
-  <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
-  <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
-  <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cognify - Profile</title>
+    <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbar.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/navbarsticky.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/footer.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/profile.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/style.css" />
+    <link rel="stylesheet" href="<?= CSS_URL ?>/theme-global.css" />
 
   <?php require __DIR__ . '/paths.php'; ?>
   <script src="<?= JS_URL ?>/auth.js"></script>
@@ -203,27 +204,76 @@ require __DIR__ . '/../logic/get_profile.php';
           </div>
         </div>
 
-        <!-- Settings -->
-        <div class="profile-card">
-          <h3 class="card-title">Settings</h3>
-
-          <div class="settings-list">
-
-            <button class="settings-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/settings.php'">
-              Account Settings
-            </button>
-
-            <button class="settings-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/achievements.php'">
-              Manage Achievements
-            </button>
-
-            <button class="settings-btn settings-btn-danger"
-              onclick="localStorage.setItem('loggedIn', 'false'); window.location.href='<?= TEMPLATES_URL ?>/index.php'">
-              Sign Out
-            </button>
-
+          <!-- Settings -->
+          <div class="profile-card">
+            <h3 class="card-title">Settings</h3>
+            <div class="settings-list">
+<button class="settings-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/settings.php'">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4f46e5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+                    fill="none"
+                  />
+                  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                </svg>
+                Account Settings
+              </button>
+              <button class="settings-btn" onclick="window.location.href='<?= TEMPLATES_URL ?>/achievements.php'">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4f46e5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M8 21l8 0" />
+                  <path d="M12 17l0 4" />
+                  <path d="M7 4l10 0" />
+                  <path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+                  <path d="M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                  <path d="M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                </svg>
+                Manage Achievements
+              </button>
+              <button class="settings-btn settings-btn-danger" onclick="localStorage.setItem('loggedIn', 'false'); window.location.href='<?= TEMPLATES_URL ?>/index.php'">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ef4444"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+                  />
+                  <path d="M9 12h12l-3 -3" />
+                  <path d="M18 15l3 -3" />
+                </svg>
+                Sign Out
+              </button>
+            </div>
           </div>
-        </div>
 
         <div class="profile-card great-progress-card">
           <div class="gp-icon">🎉</div>
@@ -237,14 +287,7 @@ require __DIR__ . '/../logic/get_profile.php';
 
   </div>
 
-  <div id="footer"></div>
-  
-  <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
-
-
-
-
-
-</body>
-
+    <div id="footer"></div>
+    <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+  </body>
 </html>
