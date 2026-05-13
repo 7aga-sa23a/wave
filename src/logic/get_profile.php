@@ -5,7 +5,7 @@ require_once __DIR__ . '/../core/connect.php';
 session_start();
 
 /* FAKE SESSION */
-$_SESSION = [
+/*$_SESSION = [
     'user_id' => 2,
     'name' => 'John Doe',
     'email' => 'john@example.com',
@@ -18,7 +18,18 @@ $_SESSION = [
     'achievements' => 3,
     'achievements_points' => 150,
     'created_at' => date('Y-m-d H:i:s')
-];
+];*/
+
+header('Content-Type: application/json');
+
+// Check login
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode([
+        'error' => 'User not logged in'
+    ]);
+    exit;
+}
+
 
 // fetch the data from the database based on the logged-in user
 $user_id = $_SESSION['user_id'];
