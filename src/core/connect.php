@@ -6,14 +6,7 @@ $password = ""; // Set to an empty string if no password has been set
 $dbname = "wave";
 $port = 3307;
 
-// Create connection
-try {
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
-} catch (Exception $e) {
-    exit("" . $e->getMessage());
-}
-
-// Check connection
-if ($conn->connect_error) {
-    exit("Connection failed: " . $conn->connect_error);
+$conn = mysqli_connect($servername, $username, $password, $dbname, $port);
+if (!$conn) {
+    die("Error : " . mysqli_connect_error());
 }
