@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/connect.php';
+session_unset();
+require_once __DIR__ . '/../core/connect.php';
 require_once __DIR__ . '/../core/config.php';
 
 if (isset($_POST["login"])) {
@@ -11,7 +12,7 @@ if (isset($_POST["login"])) {
    // validate email format
     if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION["login_error"] = "Please enter a valid email address.";
-        header("Location: signIn.php");
+        header("Location: " . TEMPLATES_URL . "/signIn.php");
         exit();
     }
 
@@ -37,7 +38,10 @@ if (isset($_POST["login"])) {
             $_SESSION["achievements_points"] = $row["achievements_points"];
             $_SESSION["created_at"] = $row["created_at"];
               
-            header("Location: " . TEMPLATES_URL . "/study-session.php");
+            echo "<script>
+                    localStorage.setItem('loggedIn', 'true');
+                    window.location.href = '" . TEMPLATES_URL . "/study-session.php';
+                  </script>";
         } else {
             $_SESSION["login_error"] = "Incorrect password.";
            header("Location: " . TEMPLATES_URL . "/signin.php");

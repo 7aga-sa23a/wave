@@ -18,7 +18,7 @@ async function handleSignIn(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     
-    const response = await fetch(`${_TEMPLATES_URL}/../core/login.php`, {
+    const response = await fetch(`${LOGIC_URL}/login.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

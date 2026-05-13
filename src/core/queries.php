@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../src/template/connect.php';
+require_once __DIR__ . '/../core/connect.php';
 
     // top performer
     $query = "SELECT name, last_week_points, streak FROM users ORDER BY last_week_points DESC LIMIT 1";

@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/../../src/core/config.php';
-require __DIR__ . '/../../src/core/connect.php';
-require __DIR__ . '/../../src/template/index.php';
+require __DIR__ . '/../src/core/config.php';
+require __DIR__ . '/../src/core/connect.php';
+require __DIR__ . '/../src/templates/index.php';
 /*
 (href=")([A-z-]+.php")
 $1<?= TEMPLATES_URL ?>/$2

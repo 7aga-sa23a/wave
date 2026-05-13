@@ -25,7 +25,7 @@ async function handleSignUp(event) {
     formData.append('email', email);
     formData.append('password', password);
     
-    const response = await fetch(`${_TEMPLATES_URL}/../core/signUp_logic.php`, {
+    const response = await fetch(`${LOGIC_URL}/signUp_logic.php`, {
         method: 'POST',
         body: formData
     });

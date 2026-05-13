@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/connect.php';
+require_once __DIR__ . '/../core/connect.php';
+require_once __DIR__ . '/../core/config.php';
 
- 
 session_start();
 
 if(isset($_POST["register"])) {
@@ -14,7 +14,7 @@ if(isset($_POST["register"])) {
      //  validate email
     if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION["signup_error"] = "Please enter a valid email address.";
-        header("Location: signUp.php");
+        header("Location: " . TEMPLATES_URL . "/signUp.php");
         
     }
 
@@ -25,13 +25,13 @@ if(isset($_POST["register"])) {
     if(mysqli_num_rows($result) > 0) {
 
         $_SESSION["signup_error"] = "This email is already registered.";
-        header("Location: signUp.php");
+        header("Location: " . TEMPLATES_URL . "/signUp.php");
 
     } else {
         $insert = "INSERT INTO users (name, email, password) VALUES ('$user_name', '$user_email', '$user_password')";
         if(mysqli_query($conn, $insert) === TRUE) {
             $_SESSION["login_success"] = "Your account has been created successfully. Please log in.";
-            header("Location: signIn.php");
+            header("Location: " . TEMPLATES_URL . "/signIn.php");
         } else {
             $_SESSION["signup_error"] = "Error: " . mysqli_error($conn);
         }

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once __DIR__ . '/../core/config.php'; 
-require_once __DIR__ . '/connect.php';
+require_once __DIR__ . '/../core/connect.php';
 require_once __DIR__ . '/../core/queries.php';
 
 if (!isset($_SESSION['user_id'])) {
