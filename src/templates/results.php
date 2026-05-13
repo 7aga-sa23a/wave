@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/../core/config.php'; ?>
+<?php
+require_once __DIR__ . '/../core/config.php';
+require_once __DIR__ . '/../logic/quiz-logic.php'
+?>
   <!doctype html>
   <html lang="en">
     <head>
@@ -69,7 +72,7 @@
                 <polyline points="12 6 12 12 16 14" />
               </svg>
             </div>
-            <div class="res-stat-value">25m</div>
+            <div class="res-stat-value"><?= $length ?></div>
             <div class="res-stat-label">Focus Time</div>
           </div>
 
@@ -88,7 +91,7 @@
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <div class="res-stat-value" id="quizScore">0%</div>
+            <div class="res-stat-value" id="quizScore"><?= $score_percent ?></div>
             <div class="res-stat-label">Quiz Score</div>
           </div>
 
@@ -107,7 +110,7 @@
                 <path d="M12 2c0 6-6 8-6 13a6 6 0 0 0 12 0c0-5-6-7-6-13z" />
               </svg>
             </div>
-            <div class="res-stat-value">16</div>
+            <div class="res-stat-value"><?= $_SESSION['streak'] ?></div>
             <div class="res-stat-label">Day Streak</div>
           </div>
         </div>
