@@ -239,9 +239,11 @@ curl_setopt_array($ch, [
     CURLOPT_HTTPHEADER => [
         "Authorization: Bearer " . $apiKey,
         "Content-Type: application/json",
+        "HTTP-Referer: http://localhost"
     ],
     CURLOPT_POSTFIELDS => json_encode($data),
     CURLOPT_TIMEOUT => 90,
+    CURLOPT_SSL_VERIFYPEER => false,
 ]);
 
 $response = curl_exec($ch);

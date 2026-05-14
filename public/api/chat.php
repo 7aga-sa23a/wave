@@ -136,10 +136,12 @@ curl_setopt_array($ch, [
 
     CURLOPT_HTTPHEADER => [
         "Authorization: Bearer " . $apiKey,
-        "Content-Type: application/json"
+        "Content-Type: application/json",
+        "HTTP-Referer: http://localhost"
     ],
 
-    CURLOPT_POSTFIELDS => json_encode($data)
+    CURLOPT_POSTFIELDS => json_encode($data),
+    CURLOPT_SSL_VERIFYPEER => false
 
 ]);
 
