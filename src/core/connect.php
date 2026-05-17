@@ -4,7 +4,7 @@ $servername = "localhost";
 $username = "root";
 $password = ""; // Set to an empty string if no password has been set
 $dbname = "wave";
-$port = 3307;
+$port = 3306;
 
 // Create connection
 try {
