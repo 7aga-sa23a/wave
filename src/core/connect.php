@@ -2,7 +2,7 @@
 // Make sure these constants match your server & MySQL configuration
 $servername = "localhost";
 $username = "root";
-$password = ""; // Set to an empty string if no password has been set
+$password = "virtual"; // Set to an empty string if no password has been set
 $dbname = "wave";
 $port = 3306;
 

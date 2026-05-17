@@ -9,7 +9,7 @@ require_once __DIR__ . '/../core/connect.php';
     $initial = strtoupper($nameParts[0][0]);
 
     // leaderboard
-    $lbQuery = "SELECT id, name, points, streak, sessions FROM users ORDER BY points DESC LIMIT 5";
+    $lbQuery = "SELECT id, name, points, streak, sessions FROM users ORDER BY points DESC LIMIT 7";
     $lbResult = mysqli_query($conn, $lbQuery);
     $leaderboard = mysqli_fetch_all($lbResult, MYSQLI_ASSOC);
     $lbQuery = "SELECT u.id, u.name, u.points, u.streak, 
