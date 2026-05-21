@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
 // fetch the data from the database based on the logged-in user
 $user_id = $_SESSION['user_id'];
 $users = $conn->prepare("
-    SELECT id, name, email, points, streak, sessions, created_at
+    SELECT id, name, email, points, streak, sessions, created_at,achievements
     FROM users
     WHERE id = ?
 ");
