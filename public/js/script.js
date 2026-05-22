@@ -320,7 +320,7 @@ if (mainLayout) {
     }
 
     // Mantiq b3t rasayel el AI
-    function sendAiMessage() {
+    async function sendAiMessage() {
         if (!aiInput) return;
         const text = aiInput.value.trim();
         if (!text) return;
@@ -334,14 +334,54 @@ if (mainLayout) {
         aiInput.value = '';
         aiMessages.scrollTop = aiMessages.scrollHeight;
 
-        // bn-2aled el AI w hwa bykteb (delay)
-        setTimeout(() => {
+        // Show typing indicator
+        const typingMsg = document.createElement('div');
+        typingMsg.className = 'ai-msg received';
+        typingMsg.textContent = "Typing...";
+        aiMessages.appendChild(typingMsg);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+
+        try {
+            const systemPrompt = "You are a helpful AI assistant for the 'Wave' productivity web app. The app features a 25-minute Pomodoro timer, a session notes notepad, and a YouTube music player. Help the user stay focused and productive. Answer concisely and motivationally.";
+            
+            // Using a free OpenAI-compatible endpoint from Pollinations
+            const response = await fetch('https://text.pollinations.ai/openai', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: text }
+                    ],
+                    model: 'openai'
+                })
+            });
+
+            if (!response.ok) throw new Error('API Error');
+
+            const data = await response.json();
+            const aiText = data.choices[0].message.content;
+
+            aiMessages.removeChild(typingMsg);
+
             const aiReply = document.createElement('div');
             aiReply.className = 'ai-msg received';
-            aiReply.textContent = "That's a great point! Keep focusing and let me know if you need more tips.";
+            aiReply.textContent = aiText;
             aiMessages.appendChild(aiReply);
             aiMessages.scrollTop = aiMessages.scrollHeight;
-        }, 1000);
+        } catch (error) {
+            console.error('Chat API Error:', error);
+            aiMessages.removeChild(typingMsg);
+            
+            // Fallback response if the free API is down or rate-limited
+            const errorReply = document.createElement('div');
+            errorReply.className = 'ai-msg received';
+            errorReply.textContent = "I'm having trouble connecting right now, but stay focused and keep up the great work!";
+            aiMessages.appendChild(errorReply);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
     }
 
     if (aiSendBtn) aiSendBtn.addEventListener('click', sendAiMessage);
