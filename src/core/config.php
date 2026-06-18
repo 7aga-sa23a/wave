@@ -1,4 +1,9 @@
 <?php
+# Define the important paths for the project (used in Frontend code)
+# Reminder:
+# Backend code uses relative paths
+# Frontend uses absolute paths (defined here)
+
 if (!defined('PUBLIC_URL')) {
     define('PUBLIC_URL', '/wave/public');
     define('DATABASE_URL', '/wave/database');
