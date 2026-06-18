@@ -307,5 +307,6 @@ require __DIR__ . '/partials/theme-head.php';
 
     <div id="footer"></div>
     <script src="<?= COMPONENTS_URL ?>/footer.js"></script>
+    <?php require __DIR__ . '/partials/theme-foot.php'; ?>
   </body>
 </html>

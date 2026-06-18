@@ -51,10 +51,12 @@
 
   if (btnLight && btnDark) {
     btnLight.addEventListener('click', function () {
+      console.log('Light theme button clicked');
       triggerRipple(btnLight);
       applyTheme('light', true);
     });
     btnDark.addEventListener('click', function () {
+      console.log('Dark theme button clicked');
       triggerRipple(btnDark);
       applyTheme('dark', true);
     });
