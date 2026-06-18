@@ -8,6 +8,7 @@ require_once __DIR__ . '/paths.php';
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <?php require __DIR__ . '/partials/theme-head.php'; ?>
         <title>study session</title>
         <link rel="stylesheet" href="<?= CSS_URL ?>/styles3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
