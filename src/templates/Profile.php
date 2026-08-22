@@ -94,7 +94,7 @@ require __DIR__ . '/partials/theme-head.php';
                   <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8 -8a8 8 0 0 1 -8 8zm.5 -13h-1a.5 .5 0 0 0 -.5 .5v5.5h-2.5a.5 .5 0 0 0 0 1h3.5a.5 .5 0 0 0 .5 -.5v-6a.5 .5 0 0 0 -.5 -.5z" />
                 </svg>
               </div>
-              <span class="stat-value" id="stat-focus"><?= $session_stats['total_focus_time'] / 60?> m</span>
+              <span class="stat-value" id="stat-focus"><?= number_format($session_stats['total_focus_time'] / 60)?> m</span>
               <span class="stat-label">Total Focus Time</span>
             </div>
 
@@ -164,7 +164,7 @@ require __DIR__ . '/partials/theme-head.php';
                 <span class="activity-title">Completed study session</span>
                 <span class="activity-time" id = "max_date"><?= $timeago ?></span>
               </div>
-              <span class="activity-points">+150</span>
+              <span class="activity-points"><?php echo isset($_SESSION['last_week_points']) ? '+'. $_SESSION['last_week_points'] : '0'; ?></span>
             </div>
 
             <div class="activity-item">
@@ -172,7 +172,7 @@ require __DIR__ . '/partials/theme-head.php';
                 <span class="activity-title">Perfect quiz score</span>
                 <span class="activity-time" id = "max_score_date"><?= $quiztimeago ?></span>
               </div>
-              <span class="activity-points">+200</span>
+              <span class="activity-points"><?php echo isset($_SESSION['achievements']) ? '+'. $_SESSION['achievements'] : '0'; ?></span>
             </div>
 
           </div>
